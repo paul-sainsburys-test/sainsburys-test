@@ -27,6 +27,7 @@ public interface IItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE>
    * @param jsoupDocument The webpage to extract the attribute from.
    * @return The attribute or if it's allowed null.
    * @see #allowsForNullAttribute()
+   * @throws NullPointerException If jsoupDocument is null.
    */
   public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument);
 
