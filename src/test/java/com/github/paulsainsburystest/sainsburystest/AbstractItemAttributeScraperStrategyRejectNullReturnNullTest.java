@@ -1,0 +1,53 @@
+package com.github.paulsainsburystest.sainsburystest;
+
+import static com.github.paulsainsburystest.sainsburystest.AbstractItemAttributeScraperStrategyTest.EMPTY_JSOUP_DOCUMENT;
+import org.jsoup.nodes.Document;
+import org.junit.Test;
+
+/**
+ * The test for when {@link AbstractItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document) }
+ * rejects a null attribute and returns null.
+ * @author Paul
+ */
+public class AbstractItemAttributeScraperStrategyRejectNullReturnNullTest
+        extends AbstractItemAttributeScraperStrategyTest<AbstractItemAttributeScraperStrategy>
+{
+
+  @Override
+  public AbstractItemAttributeScraperStrategy getTestingStrategy()
+  {
+    return new TestRejectNullReturnNullItemAttributeScraperStrategy();
+  }
+
+
+  @Test
+  public void getAttributeRejectNullReturnNullTest()
+  {
+    AbstractItemAttributeScraperStrategy strategy = this.getTestingStrategy();
+    super.expectedException.expect(ConstraintFailedException.class);
+    Object retObj = strategy.getAttribute(EMPTY_JSOUP_DOCUMENT);
+    super.expectedException.reportMissingExceptionWithMessage(
+        "We expected a "+ConstraintFailedException.class.getSimpleName()+ " to " +
+        "be thrown but it wasn't");
+  }
+
+
+  public static class TestRejectNullReturnNullItemAttributeScraperStrategy
+      extends AbstractTestItemAttributeScraperStrategy
+  {
+
+    @Override
+    public boolean allowsForNullAttribute()
+    {
+      return false;
+    }
+
+    @Override
+    protected Object getAttributeInputNullChecked(Document jsoupDocument)
+    {
+      return null;
+    }
+
+  }
+
+}
