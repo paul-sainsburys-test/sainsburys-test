@@ -18,7 +18,7 @@ public interface IItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE>
 
   /**
    * Get the string identifier of an item's attribute to be used in a set.
-   * @return The attributes name.
+   * @return The attributes name (non-null string).
    */
   public String getAttributeName();
 
