@@ -24,7 +24,9 @@ public class AbstractItemAttributeScraperStrategyRejectNullReturnNullTest
   public void getAttributeRejectNullReturnNullTest()
   {
     AbstractItemAttributeScraperStrategy strategy = this.getTestingStrategy();
+
     super.expectedException.expect(ConstraintFailedException.class);
+    super.expectedException.expectMessage("Returned object is null and nulls are not allowed.");
     Object retObj = strategy.getAttribute(EMPTY_JSOUP_DOCUMENT);
     super.expectedException.reportMissingExceptionWithMessage(
         "We expected a "+ConstraintFailedException.class.getSimpleName()+ " to " +

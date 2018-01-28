@@ -16,7 +16,19 @@ public abstract class AbstractItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE
   @Override
   public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument) throws ConstraintFailedException
   {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (jsoupDocument == null)
+    {
+      throw new NullPointerException("jsoupDocument cannot be null.");
+    }
+
+    ATTRIBUTE_RETURN_TYPE retObj = this.getAttributeInputNullChecked(jsoupDocument);
+
+    if (retObj == null && this.allowsForNullAttribute() == false)
+    {
+      throw new ConstraintFailedException("Returned object is null and nulls are not allowed.");
+    }
+
+    return retObj;
   }
 
 
