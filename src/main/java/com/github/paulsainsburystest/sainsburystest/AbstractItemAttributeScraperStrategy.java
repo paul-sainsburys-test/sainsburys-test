@@ -1,6 +1,5 @@
 package com.github.paulsainsburystest.sainsburystest;
 
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 /**
