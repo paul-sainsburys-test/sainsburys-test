@@ -28,7 +28,10 @@ public interface IItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE>
    * @return The attribute or if it's allowed null.
    * @see #allowsForNullAttribute()
    * @throws NullPointerException If jsoupDocument is null.
+   * @throws ConstraintFailedException If it was going to return null but was
+   *    not allowed to.
    */
-  public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument);
+  public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument)
+      throws ConstraintFailedException;
 
 }
