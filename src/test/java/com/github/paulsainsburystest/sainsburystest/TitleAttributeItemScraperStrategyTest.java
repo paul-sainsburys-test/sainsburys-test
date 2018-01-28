@@ -58,9 +58,19 @@ public class TitleAttributeItemScraperStrategyTest
    * Constructor for this test.
    * @param url Webpage to download and analyse.
    * @param expectedTitle The item title we expect.
+   * @throws NullPointerException If any parameter is null.
    */
   public TitleAttributeItemScraperStrategyTest(String url, String expectedTitle)
   {
+    if (url == null)
+    {
+      throw new NullPointerException("url cannot be null.");
+    }
+    else if (expectedTitle == null)
+    {
+      throw new NullPointerException("expectedTitle cannot be null.");
+    }
+
     this.url = url;
     this.expectedTitle = expectedTitle;
   }
