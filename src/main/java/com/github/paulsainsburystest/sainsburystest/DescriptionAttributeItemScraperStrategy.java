@@ -2,6 +2,8 @@ package com.github.paulsainsburystest.sainsburystest;
 
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * This strategy gets an item's description, if there are multiple lines then it
@@ -31,7 +33,37 @@ public class DescriptionAttributeItemScraperStrategy extends AbstractItemAttribu
   @Override
   protected String getAttributeInputNullChecked(Document jsoupDocument)
   {
-    throw new UnsupportedOperationException("Not supported yet.");
+    //Pick the (unique) element id closest to the data we want to extract.
+    Element informationElement = jsoupDocument.getElementById("information");
+
+    ////Get the main part element if it exists.
+    ////Actually ignore it as the id=mainPart is duplicated which makes the document
+    ////HTML syntax invalid. It's unknown what will be returned.
+    //Element mainPart = informationElement.getElementById("mainPart");
+
+    ////Select the element closest to our target.
+    //Element nextSelectionPoint = (mainPart == null ? informationElement : mainPart);
+
+    //The first element product element is the description.
+    Elements productTexts = informationElement.getElementsByClass("productText");
+    Element productText = productTexts.first();
+
+    //Possible locations for description text.
+    Elements paragraphs = productText.getElementsByTag("p");
+
+    //In most cases the first paragraph element has the text but in one case it's not.
+    //Therefore scan from the first to the last paragraph tag to find a non empty one.
+    for (Element paragraph : paragraphs)
+    {
+      String text = paragraph.text();
+      if (text.isEmpty() == false)
+      {
+        return text;
+      }
+    }
+
+    throw new MalformedDocumentException("The document doesn't have any text in the <p> elements.");
+
   }
 
 
