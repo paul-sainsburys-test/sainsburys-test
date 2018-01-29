@@ -41,11 +41,11 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
   protected Integer getAttributeInputNullChecked(Document jsoupDocument)
   {
     //Pick the (unique) element id closest to the data we want to extract.
-    Element contentElement = jsoupDocument.getElementById("information");
+    Element informationElement = jsoupDocument.getElementById("information");
 
     //There is no other tags/classes to step down onto without iterating.
     //This class seems to be uniquely identifying, so jump onto this one.
-    Elements nutritionTables = contentElement.getElementsByClass("nutritionTable");
+    Elements nutritionTables = informationElement.getElementsByClass("nutritionTable");
     Element nutritionTable = nutritionTables.first();
 
     //Does it have a nutrition table?
