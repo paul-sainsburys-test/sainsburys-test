@@ -61,7 +61,7 @@ public class DescriptionAttributeItemScraperStrategyTest
   private static final String TEST_URL12_EXPECTED_DESCRIPTION = "by Sainsbury's Family Cherry Punnet";
 
   private static final String TEST_URL13 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-cherry-punnet--taste-the-difference-250g.html";
-  private static final String TEST_URL13_EXPECTED_DESCRIPTION = "Cherry Punnet ";
+  private static final String TEST_URL13_EXPECTED_DESCRIPTION = "Cherry Punnet";
 
   private static final String TEST_URL14 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-redcurrants-150g.html";
   private static final String TEST_URL14_EXPECTED_DESCRIPTION = "by Sainsbury's redcurrants";
