@@ -1,6 +1,6 @@
-package com.github.paulsainsburystest.sainsburystest;
+package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
-import static com.github.paulsainsburystest.sainsburystest.AbstractItemAttributeScraperStrategyTest.EMPTY_JSOUP_DOCUMENT;
+import static com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.AbstractItemAttributeScraperStrategyTest.EMPTY_JSOUP_DOCUMENT;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;

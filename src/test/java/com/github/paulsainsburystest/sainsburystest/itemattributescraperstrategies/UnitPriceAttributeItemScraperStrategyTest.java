@@ -1,4 +1,4 @@
-package com.github.paulsainsburystest.sainsburystest;
+package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
 import java.io.IOException;
 import java.math.BigDecimal;

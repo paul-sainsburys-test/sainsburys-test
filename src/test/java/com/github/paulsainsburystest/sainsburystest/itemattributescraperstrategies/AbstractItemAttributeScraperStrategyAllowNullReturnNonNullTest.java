@@ -1,28 +1,28 @@
-package com.github.paulsainsburystest.sainsburystest;
+package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
-import static com.github.paulsainsburystest.sainsburystest.AbstractItemAttributeScraperStrategyTest.EMPTY_JSOUP_DOCUMENT;
+import static com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.AbstractItemAttributeScraperStrategyTest.EMPTY_JSOUP_DOCUMENT;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * The test for when {@link AbstractItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document) }
- * rejects a null attribute and does not return null.
+ * allows for a null attribute and does not return null.
  * @author Paul
  */
-public class AbstractItemAttributeScraperStrategyRejectNullReturnNonNullTest
+public class AbstractItemAttributeScraperStrategyAllowNullReturnNonNullTest
         extends AbstractItemAttributeScraperStrategyTest<AbstractItemAttributeScraperStrategy>
 {
 
   @Override
   public AbstractItemAttributeScraperStrategy getTestingStrategy()
   {
-    return new TestRejectNullReturnNonNullItemAttributeScraperStrategy();
+    return new TestAllowNullReturnNonNullItemAttributeScraperStrategy();
   }
 
 
   @Test
-  public void getAttributeRejectNullReturnNonNullTest()
+  public void getAttributeAllowNullReturnNonNullTest()
   {
     AbstractItemAttributeScraperStrategy strategy = this.getTestingStrategy();
     Object retObj = strategy.getAttribute(EMPTY_JSOUP_DOCUMENT);
@@ -30,20 +30,20 @@ public class AbstractItemAttributeScraperStrategyRejectNullReturnNonNullTest
   }
 
 
-  public static class TestRejectNullReturnNonNullItemAttributeScraperStrategy
+  public static class TestAllowNullReturnNonNullItemAttributeScraperStrategy
       extends AbstractTestItemAttributeScraperStrategy
   {
 
     @Override
     public boolean allowsForNullAttribute()
     {
-      return false;
+      return true;
     }
 
     @Override
     protected Object getAttributeInputNullChecked(Document jsoupDocument)
     {
-      return new Object();
+      return 1;
     }
 
   }
