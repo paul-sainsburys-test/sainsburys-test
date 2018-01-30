@@ -1,6 +1,7 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 
 /**
  * A meta-test of the super class to check that
@@ -18,6 +19,14 @@ public class IItemAttributeScraperStrategyFailingNullTest
   {
     return null;
   }
+
+  @Ignore("This is a purposeful failing meta-test, null will always equal to null.")
+  @Override
+  public void getTestingStrategyDifferentTest()
+  {
+
+  }
+
 
   /**
    * Test to see if returns a null strategy.
@@ -68,6 +77,71 @@ public class IItemAttributeScraperStrategyFailingNullTest
   {
     super.expectedException.expect(NullPointerException.class);
     super.getAttributeNullPointerParameter();
+    super.expectedException.reportMissingExceptionWithMessage(
+        "It was supposed to throw a NullPointerException but never did.");
+  }
+
+  /**
+   * Test to see if the superclass's test fails due to the null strategy.
+   * @see IItemAttributeScraperStrategy#equals(java.lang.Object)
+   */
+  @Override
+  public void equalsDifferentClassTest()
+  {
+    super.expectedException.expect(NullPointerException.class);
+    super.equalsDifferentClassTest();
+    super.expectedException.reportMissingExceptionWithMessage(
+        "It was supposed to throw a NullPointerException but never did.");
+  }
+
+  /**
+   * Test to see if the superclass's test fails due to the null strategy.
+   * @see IItemAttributeScraperStrategy#equals(java.lang.Object)
+   */
+  @Override
+  public void equalsNullTest()
+  {
+    super.expectedException.expect(NullPointerException.class);
+    super.equalsNullTest();
+    super.expectedException.reportMissingExceptionWithMessage(
+        "It was supposed to throw a NullPointerException but never did.");
+  }
+
+  /**
+   * Test to see if the superclass's test fails due to the null strategy.
+   * @see IItemAttributeScraperStrategy#equals(java.lang.Object)
+   */
+  @Override
+  public void equalsSameClassTest()
+  {
+    super.expectedException.expect(NullPointerException.class);
+    super.equalsSameClassTest();
+    super.expectedException.reportMissingExceptionWithMessage(
+        "It was supposed to throw a NullPointerException but never did.");
+  }
+
+  /**
+   * Test to see if the superclass's test fails due to the null strategy.
+   * @see IItemAttributeScraperStrategy#equals(java.lang.Object)
+   */
+  @Override
+  public void equalsDifferentClassDifferentAttributeNameTest()
+  {
+    super.expectedException.expect(NullPointerException.class);
+    super.equalsDifferentClassDifferentAttributeNameTest();
+    super.expectedException.reportMissingExceptionWithMessage(
+        "It was supposed to throw a NullPointerException but never did.");
+  }
+
+  /**
+   * Test to see if the superclass's test fails due to the null strategy.
+   * @see IItemAttributeScraperStrategy#equals(java.lang.Object)
+   */
+  @Override
+  public void equalsDifferentClassSameAttributeNameTest()
+  {
+    super.expectedException.expect(NullPointerException.class);
+    super.equalsDifferentClassSameAttributeNameTest();
     super.expectedException.reportMissingExceptionWithMessage(
         "It was supposed to throw a NullPointerException but never did.");
   }

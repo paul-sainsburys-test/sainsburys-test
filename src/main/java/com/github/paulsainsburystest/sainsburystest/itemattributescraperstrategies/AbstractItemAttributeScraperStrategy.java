@@ -43,8 +43,17 @@ public abstract class AbstractItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE
   @Override
   public boolean equals(Object obj)
   {
-    //Use an internal method as we know this will be non-null.
-    return this.getAttributeName().equals(obj);
+    if (obj != null && obj instanceof IItemAttributeScraperStrategy)
+    {
+      IItemAttributeScraperStrategy otherStrategy = (IItemAttributeScraperStrategy) obj;
+
+      //Use an internal method as we know this will be non-null.
+      return this.getAttributeName().equals(otherStrategy.getAttributeName());
+    }
+    else
+    {
+      return super.equals(obj);
+    }
   }
 
   @Override
@@ -52,7 +61,5 @@ public abstract class AbstractItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE
   {
     return this.getAttributeName().hashCode();
   }
-
-
 
 }
