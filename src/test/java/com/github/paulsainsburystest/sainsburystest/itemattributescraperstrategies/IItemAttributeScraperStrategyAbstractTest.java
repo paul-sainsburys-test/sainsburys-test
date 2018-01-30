@@ -23,7 +23,7 @@ public abstract class IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE ex
   public final ExpectedException expectedException = ExpectedException.none();
 
   /**
-   * Get the strategy to test.
+   * Get the strategy to test, it must create a new instance everytime when called.
    * @return A non-null {@link IItemAttributeScraperStrategy} instance.
    */
   public abstract STRATEGY_TYPE getTestingStrategy();
@@ -36,6 +36,18 @@ public abstract class IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE ex
   {
     STRATEGY_TYPE strategy = this.getTestingStrategy();
     Assert.assertNotNull("The subclass returns a null strategy.", strategy);
+  }
+
+  /**
+   * Test to see if the test returns a different instance when called again.
+   */
+  @Test
+  public void getTestingStrategyDifferentTest()
+  {
+    STRATEGY_TYPE strategy1 = this.getTestingStrategy();
+    STRATEGY_TYPE strategy2 = this.getTestingStrategy();
+    Assert.assertFalse("When called twice different strategy instances are supposed " +
+        "to be instantiated", strategy1 == strategy2);
   }
 
   /**
