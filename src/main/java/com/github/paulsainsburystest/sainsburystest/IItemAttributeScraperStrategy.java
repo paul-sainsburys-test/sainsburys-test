@@ -34,4 +34,19 @@ public interface IItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE>
   public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument)
       throws ConstraintFailedException;
 
+  /**
+   * Determines if an instance is the same.
+   * @param obj Object to compare with.
+   * @return Equals with {@link #getAttributeName() }.
+   */
+  @Override
+  public boolean equals(Object obj);
+
+  /**
+   * Calculates the hashcode of the instance.
+   * @return Hashcode of {@link #getAttributeName() }.
+   */
+  @Override
+  public int hashCode();
+
 }
