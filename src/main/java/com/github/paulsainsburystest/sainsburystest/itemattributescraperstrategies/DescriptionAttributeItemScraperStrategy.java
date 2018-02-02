@@ -33,6 +33,7 @@ public class DescriptionAttributeItemScraperStrategy extends AbstractItemAttribu
 
   @Override
   protected String getAttributeInputNullChecked(Document jsoupDocument)
+      throws MalformedDocumentException
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element informationElement = jsoupDocument.getElementById("information");

@@ -4,12 +4,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 /**
- * Runtime exception for a {@link Element} or {@link Document} that is not in the
- * correct format.
+ * Exception for a {@link Element} or {@link Document} that is not in the correct format.
+ *
+ * It's not a runtime exception as the user should handle the exception, otherwise
+ * the program may not fail cleanly. (Produces stacktrace not in the desired format.)
  *
  * @author Paul
  */
-public class MalformedDocumentException extends RuntimeException
+public class MalformedDocumentException extends Exception
 {
 
   /**

@@ -1,6 +1,7 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -31,6 +32,7 @@ public class TitleAttributeItemScraperStrategy extends AbstractItemAttributeScra
 
   @Override
   protected String getAttributeInputNullChecked(Document jsoupDocument)
+      throws MalformedDocumentException
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element contentElement = jsoupDocument.getElementById("content");

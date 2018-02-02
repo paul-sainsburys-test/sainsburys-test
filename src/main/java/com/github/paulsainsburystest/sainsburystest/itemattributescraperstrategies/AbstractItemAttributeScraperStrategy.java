@@ -1,6 +1,7 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
 import com.github.paulsainsburystest.sainsburystest.ConstraintFailedException;
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import org.jsoup.nodes.Document;
 
 /**
@@ -14,7 +15,8 @@ public abstract class AbstractItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE
 {
 
   @Override
-  public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument) throws ConstraintFailedException
+  public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument)
+      throws ConstraintFailedException, MalformedDocumentException
   {
     if (jsoupDocument == null)
     {
@@ -37,8 +39,11 @@ public abstract class AbstractItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE
    * @param jsoupDocument The webpage, parameter will be non-null.
    * @return The attribute or if it's allowed null.
    * @see AbstractItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document)
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute exists or if it should exist but does not exist.
    */
-  protected abstract ATTRIBUTE_RETURN_TYPE getAttributeInputNullChecked(Document jsoupDocument);
+  protected abstract ATTRIBUTE_RETURN_TYPE getAttributeInputNullChecked(Document jsoupDocument)
+      throws MalformedDocumentException;
 
   @Override
   public boolean equals(Object obj)

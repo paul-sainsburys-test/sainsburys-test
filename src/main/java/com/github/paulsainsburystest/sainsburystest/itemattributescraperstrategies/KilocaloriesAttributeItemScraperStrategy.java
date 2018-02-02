@@ -40,6 +40,7 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
 
   @Override
   protected Integer getAttributeInputNullChecked(Document jsoupDocument)
+      throws MalformedDocumentException
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element informationElement = jsoupDocument.getElementById("information");

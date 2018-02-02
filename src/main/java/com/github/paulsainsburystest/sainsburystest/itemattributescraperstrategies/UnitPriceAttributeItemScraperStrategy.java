@@ -47,6 +47,7 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
 
   @Override
   protected BigDecimal getAttributeInputNullChecked(Document jsoupDocument)
+      throws MalformedDocumentException
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element contentElement = jsoupDocument.getElementById("content");

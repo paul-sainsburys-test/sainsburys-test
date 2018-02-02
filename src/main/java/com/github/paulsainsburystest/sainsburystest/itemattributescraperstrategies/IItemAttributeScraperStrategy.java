@@ -1,6 +1,7 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
 import com.github.paulsainsburystest.sainsburystest.ConstraintFailedException;
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import org.jsoup.nodes.Document;
 
 /**
@@ -31,9 +32,11 @@ public interface IItemAttributeScraperStrategy<ATTRIBUTE_RETURN_TYPE>
    * @throws NullPointerException If jsoupDocument is null.
    * @throws ConstraintFailedException If it was going to return null but was
    *    not allowed to.
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute exists or if it should exist but does not exist.
    */
   public ATTRIBUTE_RETURN_TYPE getAttribute(Document jsoupDocument)
-      throws ConstraintFailedException;
+      throws ConstraintFailedException, MalformedDocumentException;
 
   /**
    * Determines if an instance is the same.
