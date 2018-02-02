@@ -1,5 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import org.junit.Assert;
 import org.junit.Ignore;
 
@@ -70,10 +71,11 @@ public class IItemAttributeScraperStrategyFailingNullTest
 
   /**
    * Test to see if the superclass's test fails due to the null strategy.
+   * @throws MalformedDocumentException Shouldn't be thrown.
    * @see IItemAttributeScraperStrategyAbstractTest#getAttributeNullPointerParameter()
    */
   @Override
-  public void getAttributeNullPointerParameter()
+  public void getAttributeNullPointerParameter() throws MalformedDocumentException
   {
     super.expectedException.expect(NullPointerException.class);
     super.getAttributeNullPointerParameter();
