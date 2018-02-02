@@ -1,5 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -85,9 +86,10 @@ public class TitleAttributeItemScraperStrategyTest
 
   /**
    * Retrieve the webpage of the url and compare it with what we expect.
+   * @throws MalformedDocumentException Shouldn't be thrown.
    */
   @Test
-  public void getAttributeTitleTest()
+  public void getAttributeTitleTest() throws MalformedDocumentException
   {
     Document jsoupDocument;
     try
@@ -100,6 +102,8 @@ public class TitleAttributeItemScraperStrategyTest
       return;
     }
 
+    //MalformedDocumentException shouldn't be thrown, but if it does the expected
+    //exception rule will catch it.
     String actualTitle = this.getTestingStrategy().getAttribute(jsoupDocument);
 
     Assert.assertEquals("The expected item title differs from the actual one.",

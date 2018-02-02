@@ -1,5 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -143,9 +144,10 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
   /**
    * Retrieve the webpage of the url and compare it with what we expect.
+   * @throws MalformedDocumentException Shouldn't be thrown.
    */
   @Test
-  public void getAttributeKcalTest()
+  public void getAttributeKcalTest()  throws MalformedDocumentException
   {
     Document jsoupDocument;
     try
@@ -158,6 +160,8 @@ public class KilocaloriesAttributeItemScraperStrategyTest
       return;
     }
 
+    //MalformedDocumentException shouldn't be thrown, but if it does the expected
+    //exception rule will catch it.
     Integer actualKcal = this.getTestingStrategy().getAttribute(jsoupDocument);
 
     Assert.assertEquals("The expected item kcal value differs from the actual one.",

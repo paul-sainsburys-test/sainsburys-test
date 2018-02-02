@@ -1,5 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -79,7 +80,7 @@ public abstract class IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE ex
    * @see IItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document)
    */
   @Test
-  public void getAttributeNullPointerParameter()
+  public void getAttributeNullPointerParameter() throws MalformedDocumentException
   {
     STRATEGY_TYPE strategy = this.getTestingStrategy();
     this.expectedException.expect(NullPointerException.class);

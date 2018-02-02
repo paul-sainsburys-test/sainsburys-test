@@ -1,5 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -140,9 +141,10 @@ public class UnitPriceAttributeItemScraperStrategyTest
 
   /**
    * Retrieve the webpage of the url and compare it with what we expect.
+   * @throws MalformedDocumentException Shouldn't be thrown.
    */
   @Test
-  public void getAttributePriceTest()
+  public void getAttributePriceTest() throws MalformedDocumentException
   {
     Document jsoupDocument;
     try
@@ -155,6 +157,8 @@ public class UnitPriceAttributeItemScraperStrategyTest
       return;
     }
 
+    //MalformedDocumentException shouldn't be thrown, but if it does the expected
+    //exception rule will catch it.
     BigDecimal actualPrice = this.getTestingStrategy().getAttribute(jsoupDocument);
 
     //compareTo() is used so values like 1.70 are the same as 1.7.

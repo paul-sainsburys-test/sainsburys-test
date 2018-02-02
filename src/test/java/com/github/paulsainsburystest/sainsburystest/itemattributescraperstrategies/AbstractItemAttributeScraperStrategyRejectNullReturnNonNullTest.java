@@ -1,5 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import static com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.AbstractItemAttributeScraperStrategyTest.EMPTY_JSOUP_DOCUMENT;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
@@ -22,7 +23,7 @@ public class AbstractItemAttributeScraperStrategyRejectNullReturnNonNullTest
 
 
   @Test
-  public void getAttributeRejectNullReturnNonNullTest()
+  public void getAttributeRejectNullReturnNonNullTest() throws MalformedDocumentException
   {
     AbstractItemAttributeScraperStrategy strategy = this.getTestingStrategy();
     Object retObj = strategy.getAttribute(EMPTY_JSOUP_DOCUMENT);
