@@ -87,20 +87,15 @@ public class TitleAttributeItemScraperStrategyTest
   /**
    * Retrieve the webpage of the url and compare it with what we expect.
    * @throws MalformedDocumentException Shouldn't be thrown.
+   * @throws IOException Shouldn't be thrown.
    */
   @Test
-  public void getAttributeTitleTest() throws MalformedDocumentException
+  public void getAttributeTitleTest() throws MalformedDocumentException, IOException
   {
-    Document jsoupDocument;
-    try
-    {
-      jsoupDocument = Jsoup.connect(this.url).get();
-    }
-    catch (IOException ex)
-    {
-      Assert.fail("IOException was thrown when requesting a webpage ("+this.url+").");
-      return;
-    }
+    //IOException shouldn't be thrown, but expected exception will handle it.
+    //The likely cause under normal circumstances the network is down. This still
+    //shouldn't happen so that's why "Assume" is not used.
+    Document jsoupDocument = Jsoup.connect(this.url).get();
 
     //MalformedDocumentException shouldn't be thrown, but if it does the expected
     //exception rule will catch it.
