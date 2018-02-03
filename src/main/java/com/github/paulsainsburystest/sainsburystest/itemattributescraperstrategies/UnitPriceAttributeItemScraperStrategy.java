@@ -82,6 +82,10 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
 
     Elements addToTrolleytabBoxes = productSummary.getElementsByClass("addToTrolleytabBox");
     Element addToTrolleytabBox = addToTrolleytabBoxes.first();
+    if (addToTrolleytabBox == null)
+    {
+      throw new MalformedDocumentException("Class \"addToTrolleytabBox\" is missing.");
+    }
 
     Elements addToTrolleytabContainers = addToTrolleytabBox.getElementsByClass("addToTrolleytabContainer");
     Element addToTrolleytabContainer = addToTrolleytabContainers.first();
