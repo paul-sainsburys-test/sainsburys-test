@@ -205,6 +205,29 @@ public class TitleAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "h1" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeH1TagMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    Element productContent = contentElement.getElementsByClass("productContent").first();
+    Element pdp = productContent.getElementsByClass("pdp").first();
+    Element productSummary = pdp.getElementsByClass("productSummary").first();
+    Element productTitleDescriptionContainer = productSummary.getElementsByClass("productTitleDescriptionContainer").first();
+    Elements h1 = productTitleDescriptionContainer.getElementsByTag("h1");
+    h1.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Tag \"h1\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
 
 
 }
