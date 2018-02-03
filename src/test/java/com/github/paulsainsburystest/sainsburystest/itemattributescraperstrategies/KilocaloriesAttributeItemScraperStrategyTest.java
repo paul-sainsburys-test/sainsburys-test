@@ -226,5 +226,31 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "td" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeTdTagMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element informationElement = jsoupDocument.getElementById("information");
+    Elements tbodies = informationElement.getElementsByTag("tbody");
+
+    Assume.assumeFalse("This page does not have a table so we cannot test it.", tbodies.isEmpty());
+
+    Element tbody = tbodies.first();
+    Element tableRow = tbody.getElementsByTag("tr").get(1);
+    Elements tableData = tableRow.getElementsByTag("td");
+    tableData.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Tag \"td\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
+
 
 }
