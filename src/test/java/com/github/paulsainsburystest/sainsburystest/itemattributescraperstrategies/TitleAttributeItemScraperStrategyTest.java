@@ -139,4 +139,25 @@ public class TitleAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "pdp" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePdpClassMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    Element productContent = contentElement.getElementsByClass("productContent").first();
+    Elements pdps = productContent.getElementsByClass("pdp");
+    pdps.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Class \"pdp\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
+
 }
