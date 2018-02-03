@@ -7,6 +7,7 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,5 +119,24 @@ public class TitleAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "productContent" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeProductContentClassMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    Elements productContents = contentElement.getElementsByClass("productContent");
+    productContents.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Class \"productContent\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
 
 }
