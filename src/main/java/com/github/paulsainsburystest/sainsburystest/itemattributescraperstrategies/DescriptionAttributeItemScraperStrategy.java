@@ -60,6 +60,10 @@ public class DescriptionAttributeItemScraperStrategy extends AbstractItemAttribu
 
     //Possible locations for description text.
     Elements paragraphs = productText.getElementsByTag("p");
+    if (paragraphs.isEmpty())
+    {
+      throw new MalformedDocumentException("Tag \"p\" is missing.");
+    }
 
     //In most cases the first paragraph element has the text but in one case it's not.
     //Therefore scan from the first to the last paragraph tag to find a non empty one.
@@ -72,8 +76,8 @@ public class DescriptionAttributeItemScraperStrategy extends AbstractItemAttribu
       }
     }
 
-    throw new MalformedDocumentException("The document doesn't have any text in the <p> elements.");
-
+    //If they are all empty then return an empty string.
+    return "";
   }
 
 
