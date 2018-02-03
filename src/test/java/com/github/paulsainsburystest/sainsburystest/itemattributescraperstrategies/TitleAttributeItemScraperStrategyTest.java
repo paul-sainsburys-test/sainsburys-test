@@ -160,4 +160,27 @@ public class TitleAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "productSummary" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeProductSummaryClassMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    Element productContent = contentElement.getElementsByClass("productContent").first();
+    Element pdp = productContent.getElementsByClass("pdp").first();
+    Elements productSummaries = pdp.getElementsByClass("productSummary");
+    productSummaries.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Class \"productSummary\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
+
+
 }
