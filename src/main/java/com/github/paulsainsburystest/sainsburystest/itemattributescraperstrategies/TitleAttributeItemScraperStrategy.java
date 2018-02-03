@@ -53,8 +53,13 @@ public class TitleAttributeItemScraperStrategy extends AbstractItemAttributeScra
       throw new MalformedDocumentException("Class \"productContent\" is missing.");
     }
 
+    //Again we make the assumption it's the only one in the subtree.
     Elements pdps = productContent.getElementsByClass("pdp");
     Element pdp = pdps.first();
+    if (pdp == null)
+    {
+      throw new MalformedDocumentException("Class \"pdp\" is missing.");
+    }
 
     Elements productSummaries = pdp.getElementsByClass("productSummary");
     Element productSummary = productSummaries.first();
