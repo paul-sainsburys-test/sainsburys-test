@@ -1,10 +1,10 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.Globals;
 import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -168,7 +168,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeInformationIdMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     informationElement.remove();
@@ -187,7 +187,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTbodyTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
@@ -209,7 +209,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTrTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
@@ -234,7 +234,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTdTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
@@ -379,7 +379,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
    */
   private Document getDocumentAndSetKcalText(String text) throws IOException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");

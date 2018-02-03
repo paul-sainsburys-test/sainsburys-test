@@ -1,10 +1,10 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.Globals;
 import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -108,7 +108,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeContentIdMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     contentElement.remove();
@@ -127,7 +127,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductContentClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Elements productContents = contentElement.getElementsByClass("productContent");
@@ -147,7 +147,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributePdpClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -168,7 +168,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductSummaryClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -190,7 +190,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductTitleDescriptionContainerClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -213,7 +213,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeH1TagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Jsoup.connect(this.url).get();
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
