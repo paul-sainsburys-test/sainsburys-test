@@ -1,9 +1,12 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.Globals;
 import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -153,6 +156,26 @@ public class DescriptionAttributeItemScraperStrategyTest
 
     Assert.assertEquals("The expected item description differs from the actual one.",
         this.expectedDescription, actualDescription);
+  }
+
+
+  /**
+   * Test to see if an exception is thrown if the "information" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeInformationIdMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("information");
+    contentElement.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Id \"information\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
   }
 
 
