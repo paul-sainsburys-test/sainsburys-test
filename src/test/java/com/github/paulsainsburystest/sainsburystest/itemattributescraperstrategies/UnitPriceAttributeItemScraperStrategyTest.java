@@ -264,5 +264,29 @@ public class UnitPriceAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "addToTrolleytabContainer" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeAddToTrolleytabContainerClassMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    Element productContent = contentElement.getElementsByClass("productContent").first();
+    Element pdp = productContent.getElementsByClass("pdp").first();
+    Element productSummary = pdp.getElementsByClass("productSummary").first();
+    Element addToTrolleytabBoxes = productSummary.getElementsByClass("addToTrolleytabBox").first();
+    Elements addToTrolleytabContainers = addToTrolleytabBoxes.getElementsByClass("addToTrolleytabContainer");
+    addToTrolleytabContainers.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Class \"addToTrolleytabContainer\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
+
 
 }
