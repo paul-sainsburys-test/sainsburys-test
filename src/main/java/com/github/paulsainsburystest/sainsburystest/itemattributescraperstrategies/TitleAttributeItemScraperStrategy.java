@@ -36,6 +36,10 @@ public class TitleAttributeItemScraperStrategy extends AbstractItemAttributeScra
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element contentElement = jsoupDocument.getElementById("content");
+    if (contentElement == null)
+    {
+      throw new MalformedDocumentException("Id \"content\" is missing.");
+    }
 
     //It may be possible to go stright from this element to the last element tag,
     //then to h1 but it's more robust to step down each node in the tree.
