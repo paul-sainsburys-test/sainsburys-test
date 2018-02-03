@@ -4,6 +4,9 @@ import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -94,6 +97,20 @@ public class TitleAttributeItemScraperStrategyTest
 
     Assert.assertEquals("The expected item title differs from the actual one.",
         this.expectedTitle, actualTitle);
+  }
+
+  @Test
+  public void getAttributeContentIdMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    contentElement.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Id \"content\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
   }
 
 
