@@ -79,6 +79,11 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
     //Select the table data, making sure to ignore table header tag ("th").
     Elements tableDataMulti = tableRow.getElementsByTag("td");
     Element tableData = tableDataMulti.first();
+    if (tableData == null)
+    {
+      throw new MalformedDocumentException("Tag \"td\" is missing.");
+    }
+
     String data = tableData.text();
 
     //Most are labeled as "<number>kcal" but one is just "<number>".
