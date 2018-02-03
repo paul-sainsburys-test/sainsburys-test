@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +16,8 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class UnitPriceAttributeItemScraperStrategyTest
-    extends IItemAttributeScraperStrategyAbstractTest<UnitPriceAttributeItemScraperStrategy>
+    extends IItemAttributeScraperStrategyAbstractTest<UnitPriceAttributeItemScraperStrategy,
+        BigDecimal>
 {
 
   private static final String TEST_URL1 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html";
@@ -147,14 +146,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributePriceTest() throws MalformedDocumentException, IOException
   {
-    //IOException shouldn't be thrown, but expected exception will handle it.
-    //The likely cause under normal circumstances the network is down. This still
-    //shouldn't happen so that's why "Assume" is not used.
-    Document jsoupDocument = Jsoup.connect(this.url).get();
-
-    //MalformedDocumentException shouldn't be thrown, but if it does the expected
-    //exception rule will catch it.
-    BigDecimal actualPrice = this.getTestingStrategy().getAttribute(jsoupDocument);
+    BigDecimal actualPrice = this.getAttributeFromUrlString(this.url);
 
     //compareTo() is used so values like 1.70 are the same as 1.7.
     Assert.assertEquals("The difference in the expected and actual item price is non-zero.",

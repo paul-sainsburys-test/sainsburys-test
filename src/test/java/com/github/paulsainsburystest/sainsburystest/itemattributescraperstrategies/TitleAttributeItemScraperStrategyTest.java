@@ -4,8 +4,6 @@ import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +15,7 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class TitleAttributeItemScraperStrategyTest
-    extends IItemAttributeScraperStrategyAbstractTest<TitleAttributeItemScraperStrategy>
+    extends IItemAttributeScraperStrategyAbstractTest<TitleAttributeItemScraperStrategy, String>
 {
 
   private static final String TEST_URL1 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html";
@@ -92,14 +90,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTitleTest() throws MalformedDocumentException, IOException
   {
-    //IOException shouldn't be thrown, but expected exception will handle it.
-    //The likely cause under normal circumstances the network is down. This still
-    //shouldn't happen so that's why "Assume" is not used.
-    Document jsoupDocument = Jsoup.connect(this.url).get();
-
-    //MalformedDocumentException shouldn't be thrown, but if it does the expected
-    //exception rule will catch it.
-    String actualTitle = this.getTestingStrategy().getAttribute(jsoupDocument);
+    String actualTitle = this.getAttributeFromUrlString(this.url);
 
     Assert.assertEquals("The expected item title differs from the actual one.",
         this.expectedTitle, actualTitle);

@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
  * @see IItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document)
  */
 public abstract class AbstractItemAttributeScraperStrategyTest<STRATEGY_TYPE extends IItemAttributeScraperStrategy>
-    extends IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE>
+    extends IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE, Object>
 {
 
   /**

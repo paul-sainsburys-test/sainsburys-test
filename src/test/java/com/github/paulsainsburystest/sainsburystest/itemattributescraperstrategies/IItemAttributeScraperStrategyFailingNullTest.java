@@ -12,7 +12,7 @@ import org.junit.Ignore;
  * @author Paul
  */
 public class IItemAttributeScraperStrategyFailingNullTest
-    extends IItemAttributeScraperStrategyAbstractTest<IItemAttributeScraperStrategy>
+    extends IItemAttributeScraperStrategyAbstractTest<IItemAttributeScraperStrategy, Object>
 {
 
   @Override

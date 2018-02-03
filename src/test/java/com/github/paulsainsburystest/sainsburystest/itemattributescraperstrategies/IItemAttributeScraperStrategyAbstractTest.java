@@ -1,6 +1,8 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
 import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
+import java.io.IOException;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -16,9 +18,11 @@ import org.junit.rules.ExpectedException;
  *
  * @author Paul
  * @param <STRATEGY_TYPE> What strategy is being tested.
+ * @param <STRATEGY_RETURNED_TYPE> The type that is returned by the strategy.
  * @see IItemAttributeScraperStrategy
  */
-public abstract class IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE extends IItemAttributeScraperStrategy>
+public abstract class IItemAttributeScraperStrategyAbstractTest
+    <STRATEGY_TYPE extends IItemAttributeScraperStrategy, STRATEGY_RETURNED_TYPE>
 {
 
   @Rule
@@ -29,6 +33,37 @@ public abstract class IItemAttributeScraperStrategyAbstractTest<STRATEGY_TYPE ex
    * @return A non-null {@link IItemAttributeScraperStrategy} instance.
    */
   public abstract STRATEGY_TYPE getTestingStrategy();
+
+  /**
+   * Get an attribute from a URL string.
+   * @param url The url of the webpage you want to download and test.
+   * @return An attribute casted to the specified generic type.
+   * @throws MalformedDocumentException Thrown if the strategy cannot determine
+   *    if the attribute exists or if it should exist but does not exist.
+   * @throws IOException Shouldn't be thrown.
+   * @throws ClassCastException If you have specified the wrong generic in your test.
+   */
+  public STRATEGY_RETURNED_TYPE getAttributeFromUrlString(String url)
+      throws MalformedDocumentException, IOException
+  {
+    //IOException shouldn't be thrown, but expected exception will handle it.
+    //The likely cause under normal circumstances is the network is down. This still
+    //shouldn't happen so that's why "Assume" is not used.
+    Document jsoupDocument = Jsoup.connect(url).get();
+
+    //MalformedDocumentException may be thrown. But it depends on whether you are
+    //testing whether a well formed document with the attribute (not thrown),
+    //a document not with the correct HTML structure (thrown) or an attribute
+    //should exist but doesn't (thrown).
+    Object returnedAttribute = this.getTestingStrategy().getAttribute(jsoupDocument);
+
+    //This cannot be determined directly by only using the strategy type, so it
+    //has to be specified manually. Suppressed as it's mentioned in the javadoc.
+    @SuppressWarnings("unchecked")
+    STRATEGY_RETURNED_TYPE castedAttribute = (STRATEGY_RETURNED_TYPE) returnedAttribute;
+
+    return castedAttribute;
+  }
 
   /**
    * Test to see if the test subclass actually returns a non-null strategy instance.

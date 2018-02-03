@@ -4,8 +4,6 @@ import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +15,7 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class DescriptionAttributeItemScraperStrategyTest
-    extends IItemAttributeScraperStrategyAbstractTest<DescriptionAttributeItemScraperStrategy>
+    extends IItemAttributeScraperStrategyAbstractTest<DescriptionAttributeItemScraperStrategy, String>
 {
 
   //Has mainPart and itemTypeGroup
@@ -151,14 +149,7 @@ public class DescriptionAttributeItemScraperStrategyTest
   @Test
   public void getAttributeDescriptionTest() throws MalformedDocumentException, IOException
   {
-    //IOException shouldn't be thrown, but expected exception will handle it.
-    //The likely cause under normal circumstances the network is down. This still
-    //shouldn't happen so that's why "Assume" is not used.
-    Document jsoupDocument = Jsoup.connect(this.url).get();
-
-    //MalformedDocumentException shouldn't be thrown, but if it does the expected
-    //exception rule will catch it.
-    String actualDescription = this.getTestingStrategy().getAttribute(jsoupDocument);
+    String actualDescription = this.getAttributeFromUrlString(this.url);
 
     Assert.assertEquals("The expected item description differs from the actual one.",
         this.expectedDescription, actualDescription);

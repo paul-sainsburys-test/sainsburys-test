@@ -4,8 +4,6 @@ import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +15,8 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class KilocaloriesAttributeItemScraperStrategyTest
-    extends IItemAttributeScraperStrategyAbstractTest<KilocaloriesAttributeItemScraperStrategy>
+    extends IItemAttributeScraperStrategyAbstractTest<KilocaloriesAttributeItemScraperStrategy,
+        Integer>
 {
 
   //3 columns coloured.
@@ -150,14 +149,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeKcalTest()  throws MalformedDocumentException, IOException
   {
-    //IOException shouldn't be thrown, but expected exception will handle it.
-    //The likely cause under normal circumstances the network is down. This still
-    //shouldn't happen so that's why "Assume" is not used.
-    Document jsoupDocument = Jsoup.connect(this.url).get();
-
-    //MalformedDocumentException shouldn't be thrown, but if it does the expected
-    //exception rule will catch it.
-    Integer actualKcal = this.getTestingStrategy().getAttribute(jsoupDocument);
+    Integer actualKcal = this.getAttributeFromUrlString(this.url);
 
     Assert.assertEquals("The expected item kcal value differs from the actual one.",
         this.expectedKcal, actualKcal);
