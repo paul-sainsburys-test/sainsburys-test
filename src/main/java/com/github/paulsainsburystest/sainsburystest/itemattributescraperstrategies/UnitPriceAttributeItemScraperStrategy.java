@@ -110,6 +110,10 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
 
     Elements pricePerUnits = pricing.getElementsByClass("pricePerUnit");
     Element pricePerUnit = pricePerUnits.first();
+    if (pricePerUnit == null)
+    {
+      throw new MalformedDocumentException("Class \"pricePerUnit\" is missing.");
+    }
 
     //Some sample text: "£0.50/unit" or "£1.00/unit"
     String data = pricePerUnit.text();
