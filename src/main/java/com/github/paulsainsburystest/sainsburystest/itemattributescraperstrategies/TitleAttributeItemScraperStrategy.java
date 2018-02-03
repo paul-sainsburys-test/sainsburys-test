@@ -77,9 +77,15 @@ public class TitleAttributeItemScraperStrategy extends AbstractItemAttributeScra
       throw new MalformedDocumentException("Class \"productTitleDescriptionContainer\" is missing.");
     }
 
+    //Again we make the assumption it's the only one in the subtree.
     Elements h1s = productTitleDescriptionContainer.getElementsByTag("h1");
     Element h1 = h1s.first();
+    if (h1 == null)
+    {
+      throw new MalformedDocumentException("Tag \"h1\" is missing.");
+    }
 
+    //We also assume the text is non-empty.
     return h1.text();
 
   }
