@@ -103,6 +103,10 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
 
     Elements prices = pricingAndTrolleyOption.getElementsByClass("pricing");
     Element pricing = prices.first();
+    if (pricing == null)
+    {
+      throw new MalformedDocumentException("Class \"pricing\" is missing.");
+    }
 
     Elements pricePerUnits = pricing.getElementsByClass("pricePerUnit");
     Element pricePerUnit = pricePerUnits.first();
