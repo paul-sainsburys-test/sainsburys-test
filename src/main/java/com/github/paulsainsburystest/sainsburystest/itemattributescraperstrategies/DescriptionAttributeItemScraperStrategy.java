@@ -53,6 +53,10 @@ public class DescriptionAttributeItemScraperStrategy extends AbstractItemAttribu
     //The first element product element is the description.
     Elements productTexts = informationElement.getElementsByClass("productText");
     Element productText = productTexts.first();
+    if (productText == null)
+    {
+      throw new MalformedDocumentException("Class \"productText\" is missing.");
+    }
 
     //Possible locations for description text.
     Elements paragraphs = productText.getElementsByTag("p");
