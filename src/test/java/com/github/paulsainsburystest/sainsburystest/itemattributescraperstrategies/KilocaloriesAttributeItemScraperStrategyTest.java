@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -190,6 +191,8 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
+
+    Assume.assumeFalse("This page does not have a table so we cannot test it.", tbodies.isEmpty());
     tbodies.remove();
 
     this.expectedException.expect(MalformedDocumentException.class);
