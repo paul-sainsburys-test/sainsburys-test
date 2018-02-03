@@ -7,6 +7,7 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -173,6 +174,26 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
     this.expectedException.expect(MalformedDocumentException.class);
     this.expectedException.expectMessage("Id \"information\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
+
+  /**
+   * Test to see if an exception is thrown if the "tbody" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeTbodyTagMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element informationElement = jsoupDocument.getElementById("information");
+    Elements tbodies = informationElement.getElementsByTag("tbody");
+    tbodies.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Tag \"tbody\" is missing");
     this.getTestingStrategy().getAttribute(jsoupDocument);
 
   }
