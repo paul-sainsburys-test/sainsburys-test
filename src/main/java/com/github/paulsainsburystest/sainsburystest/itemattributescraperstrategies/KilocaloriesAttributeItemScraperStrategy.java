@@ -95,8 +95,8 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
     }
     else
     {
-      throw new MalformedDocumentException("The data was found but was not in " +
-          "the correct pattern (\""+data+"\")");
+      throw new MalformedDocumentException("Malformatted kilocalories cell." +
+          " The data was found but was not in the correct pattern (\""+data+"\")");
     }
   }
 
