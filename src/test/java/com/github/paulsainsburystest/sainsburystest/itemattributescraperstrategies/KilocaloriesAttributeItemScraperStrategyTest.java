@@ -201,5 +201,30 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the "tr" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeTrTagMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element informationElement = jsoupDocument.getElementById("information");
+    Elements tbodies = informationElement.getElementsByTag("tbody");
+
+    Assume.assumeFalse("This page does not have a table so we cannot test it.", tbodies.isEmpty());
+
+    Element tbody = tbodies.first();
+    Elements tableRows = tbody.getElementsByTag("tr");
+    tableRows.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Tag \"tr\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
+  }
+
 
 }
