@@ -70,11 +70,11 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
 
     //Get the second table row.
     Elements tableRows = tableBody.getElementsByTag("tr");
-    Element tableRow = tableRows.get(1);
-    if (tableRow == null)
+    if (tableRows.size() < 2)
     {
       throw new MalformedDocumentException("Tag \"tr\" is missing.");
     }
+    Element tableRow = tableRows.get(1);
 
     //Select the table data, making sure to ignore table header tag ("th").
     Elements tableDataMulti = tableRow.getElementsByTag("td");
