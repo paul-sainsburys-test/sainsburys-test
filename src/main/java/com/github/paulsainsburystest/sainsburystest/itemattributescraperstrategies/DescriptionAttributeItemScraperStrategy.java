@@ -37,6 +37,10 @@ public class DescriptionAttributeItemScraperStrategy extends AbstractItemAttribu
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element informationElement = jsoupDocument.getElementById("information");
+    if (informationElement == null)
+    {
+      throw new MalformedDocumentException("Id \"information\" is missing.");
+    }
 
     ////Get the main part element if it exists.
     ////Actually ignore it as the id=mainPart is duplicated which makes the document
