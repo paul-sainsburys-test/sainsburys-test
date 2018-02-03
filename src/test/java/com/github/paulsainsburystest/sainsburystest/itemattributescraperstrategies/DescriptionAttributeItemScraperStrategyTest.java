@@ -197,5 +197,50 @@ public class DescriptionAttributeItemScraperStrategyTest
     this.getTestingStrategy().getAttribute(jsoupDocument);
   }
 
+  /**
+   * Test to see if an exception is thrown if the "p" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeParagraphTagMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("information");
+    Element productText = contentElement.getElementsByClass("productText").first();
+    Elements paragraphs = productText.getElementsByTag("p");
+    paragraphs.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Tag \"p\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the "p" element is empty.
+   * Note: this result is assumed to be correct as the DOM is in the correct format
+   * but is empty.
+   * @throws MalformedDocumentException Shouldn't be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeParagraphTagEmpty() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("information");
+    Element productText = contentElement.getElementsByClass("productText").first();
+    Elements paragraphs = productText.getElementsByTag("p");
+
+    //Remove all contents of the paragraphs. e.g. text.
+    for (Element p : paragraphs)
+    {
+      p.text("");
+    }
+
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
 
 }
