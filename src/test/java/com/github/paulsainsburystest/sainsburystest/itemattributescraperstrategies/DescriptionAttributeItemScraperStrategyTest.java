@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -175,7 +176,25 @@ public class DescriptionAttributeItemScraperStrategyTest
     this.expectedException.expect(MalformedDocumentException.class);
     this.expectedException.expectMessage("Id \"information\" is missing");
     this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
 
+  /**
+   * Test to see if an exception is thrown if the "productText" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeProductTextClassMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("information");
+    Elements productTexts = contentElement.getElementsByClass("productText");
+    productTexts.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Class \"productText\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
   }
 
 
