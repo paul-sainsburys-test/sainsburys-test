@@ -51,6 +51,10 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element contentElement = jsoupDocument.getElementById("content");
+    if (contentElement == null)
+    {
+      throw new MalformedDocumentException("Id \"content\" is missing.");
+    }
 
     //It may be possible to go stright from this element to class "pricePerUnit",
     //but it's more robust to step down the tree.
