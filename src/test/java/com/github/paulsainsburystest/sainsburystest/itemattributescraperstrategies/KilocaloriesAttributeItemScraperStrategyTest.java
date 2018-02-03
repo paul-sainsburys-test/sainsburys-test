@@ -252,5 +252,147 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
   }
 
+  /**
+   * Test to see if an exception is thrown if the extraction cell is empty.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternEmpty() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the extraction cell has random text.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternRandomText() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("test");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the extraction cell starts with a
+   * non number (doesn't end with "kcal").
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternStartNonNumbersNoKcal() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("^54");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the extraction cell starts with a
+   * non number (ends with "kcal").
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternStartNonNumbersWithKcal() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("a54kcal");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the extraction cell has a non number
+   * in the middle/end (doesn't end with "kcal").
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternMiddleEndNonNumbersNoKcal() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("54$");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the extraction cell has another character
+   * at the end (ends with "kcal").
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternEndWithKcal() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("54kcal6");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the extraction cell has a non number
+   * in the middle (ends with "kcal").
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributePatternMiddleNonNumbersWithKcal() throws IOException, MalformedDocumentException
+  {
+    //Correct format "^<numbers>$" or "^<numbers>kcal$"
+    Document jsoupDocument = this.getDocumentAndSetKcalText("54dkcal");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted kilocalories cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+
+  /**
+   * Get the webpage at the url initialised with this test and overwrite the text with
+   * one specified as a parameter.
+   * @param text What text should be set in the cell.
+   * @return A {@link Document} with the replaced text.
+   * @throws IOException Shouldn't be thrown.
+   */
+  private Document getDocumentAndSetKcalText(String text) throws IOException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element informationElement = jsoupDocument.getElementById("information");
+    Elements tbodies = informationElement.getElementsByTag("tbody");
+
+    Assume.assumeFalse("This page does not have a table so we cannot test it.", tbodies.isEmpty());
+
+    Element tbody = tbodies.first();
+    Element tableRow = tbody.getElementsByTag("tr").get(1);
+    Element tableData = tableRow.getElementsByTag("td").first();
+    tableData.text(text);
+
+    return jsoupDocument;
+  }
+
 
 }
