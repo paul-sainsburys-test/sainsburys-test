@@ -68,6 +68,10 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
 
     Elements pdps = productContent.getElementsByClass("pdp");
     Element pdp = pdps.first();
+    if (pdp == null)
+    {
+      throw new MalformedDocumentException("Class \"pdp\" is missing");
+    }
 
     Elements productSummaries = pdp.getElementsByClass("productSummary");
     Element productSummary = productSummaries.first();
