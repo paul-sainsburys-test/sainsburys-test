@@ -169,8 +169,8 @@ public class DescriptionAttributeItemScraperStrategyTest
   {
     Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
 
-    Element contentElement = jsoupDocument.getElementById("information");
-    contentElement.remove();
+    Element informationElement = jsoupDocument.getElementById("information");
+    informationElement.remove();
 
     this.expectedException.expect(MalformedDocumentException.class);
     this.expectedException.expectMessage("Id \"information\" is missing");
