@@ -99,6 +99,11 @@ public class TitleAttributeItemScraperStrategyTest
         this.expectedTitle, actualTitle);
   }
 
+  /**
+   * Test to see if an exception is thrown if the "content" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
   @Test
   public void getAttributeContentIdMissing() throws IOException, MalformedDocumentException
   {
