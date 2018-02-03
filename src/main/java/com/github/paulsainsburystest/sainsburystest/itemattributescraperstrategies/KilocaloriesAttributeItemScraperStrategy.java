@@ -44,6 +44,10 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
   {
     //Pick the (unique) element id closest to the data we want to extract.
     Element informationElement = jsoupDocument.getElementById("information");
+    if (informationElement == null)
+    {
+      throw new MalformedDocumentException("Id \"information\" is missing.");
+    }
 
     //There is no other tags/classes to step down onto without iterating.
     //This class seems to be uniquely identifying, so jump onto this one.
