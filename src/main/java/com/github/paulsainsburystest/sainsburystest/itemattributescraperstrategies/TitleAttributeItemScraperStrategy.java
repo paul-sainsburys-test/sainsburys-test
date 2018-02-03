@@ -45,8 +45,13 @@ public class TitleAttributeItemScraperStrategy extends AbstractItemAttributeScra
     //then to h1 but it's more robust to step down each node in the tree.
     //Class tags would be more stable then the fine layout of the webpage too.
 
+    //We make the assumption it's the only one.
     Elements productContents = contentElement.getElementsByClass("productContent");
     Element productContent = productContents.first();
+    if (productContent == null)
+    {
+      throw new MalformedDocumentException("Class \"productContent\" is missing.");
+    }
 
     Elements pdps = productContent.getElementsByClass("pdp");
     Element pdp = pdps.first();
