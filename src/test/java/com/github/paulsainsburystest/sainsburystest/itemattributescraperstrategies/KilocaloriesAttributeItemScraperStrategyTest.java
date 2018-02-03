@@ -4,6 +4,9 @@ import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -153,6 +156,25 @@ public class KilocaloriesAttributeItemScraperStrategyTest
 
     Assert.assertEquals("The expected item kcal value differs from the actual one.",
         this.expectedKcal, actualKcal);
+  }
+
+  /**
+   * Test to see if an exception is thrown if the "information" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeInformationIdMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Jsoup.connect(this.url).get();
+
+    Element informationElement = jsoupDocument.getElementById("information");
+    informationElement.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Id \"information\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
   }
 
 
