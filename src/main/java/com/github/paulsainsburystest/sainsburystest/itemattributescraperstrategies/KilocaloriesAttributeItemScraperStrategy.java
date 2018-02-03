@@ -63,6 +63,10 @@ public class KilocaloriesAttributeItemScraperStrategy extends AbstractItemAttrib
     //Skip the headers and go into the body.
     Elements tableBodies = nutritionTable.getElementsByTag("tbody");
     Element tableBody = tableBodies.first();
+    if (tableBody == null)
+    {
+      throw new MalformedDocumentException("Tag \"tbody\" is missing.");
+    }
 
     //Get the second table row.
     Elements tableRows = tableBody.getElementsByTag("tr");
