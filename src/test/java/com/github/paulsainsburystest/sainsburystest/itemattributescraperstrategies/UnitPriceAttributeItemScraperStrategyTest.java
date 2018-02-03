@@ -1,10 +1,13 @@
 package com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies;
 
+import com.github.paulsainsburystest.sainsburystest.Globals;
 import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -151,6 +154,26 @@ public class UnitPriceAttributeItemScraperStrategyTest
     //compareTo() is used so values like 1.70 are the same as 1.7.
     Assert.assertEquals("The difference in the expected and actual item price is non-zero.",
         0, this.expectedPrice.compareTo(actualPrice));
+  }
+
+
+  /**
+   * Test to see if an exception is thrown if the "content" element is missing.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeContentIdMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    contentElement.remove();
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Id \"content\" is missing");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+
   }
 
 
