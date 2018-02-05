@@ -174,7 +174,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributeContentIdMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     contentElement.remove();
@@ -193,7 +193,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductContentClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Elements productContents = contentElement.getElementsByClass("productContent");
@@ -214,7 +214,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributePdpClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -235,7 +235,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductSummaryClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -257,7 +257,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributeAddToTrolleytabBoxClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -280,7 +280,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributeAddToTrolleytabContainerClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -304,7 +304,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributePricingAndTrolleyOptionsClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -329,7 +329,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributePricingClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -355,7 +355,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
   @Test
   public void getAttributePricePerUnitClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -583,7 +583,7 @@ public class UnitPriceAttributeItemScraperStrategyTest
    */
   private Document getDocumentAndSetUnitPriceText(String text) throws IOException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();

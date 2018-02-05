@@ -7,6 +7,6 @@ package com.github.paulsainsburystest.sainsburystest;
 public class Globals
 {
   /** A cache for webpages. */
-  public static SimpleWebpageCache webpageCache = new SimpleWebpageCache();
+  public static final SimpleWebpageCache WEBPAGE_CACHE = new SimpleWebpageCache();
 
 }

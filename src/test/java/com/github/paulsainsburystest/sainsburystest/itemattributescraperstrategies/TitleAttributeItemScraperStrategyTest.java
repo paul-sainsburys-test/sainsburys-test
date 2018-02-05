@@ -108,7 +108,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeContentIdMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     contentElement.remove();
@@ -127,7 +127,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductContentClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Elements productContents = contentElement.getElementsByClass("productContent");
@@ -147,7 +147,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributePdpClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -168,7 +168,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductSummaryClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -190,7 +190,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductTitleDescriptionContainerClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();
@@ -213,7 +213,7 @@ public class TitleAttributeItemScraperStrategyTest
   @Test
   public void getAttributeH1TagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("content");
     Element productContent = contentElement.getElementsByClass("productContent").first();

@@ -168,7 +168,7 @@ public class DescriptionAttributeItemScraperStrategyTest
   @Test
   public void getAttributeInformationIdMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     informationElement.remove();
@@ -186,7 +186,7 @@ public class DescriptionAttributeItemScraperStrategyTest
   @Test
   public void getAttributeProductTextClassMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("information");
     Elements productTexts = contentElement.getElementsByClass("productText");
@@ -205,7 +205,7 @@ public class DescriptionAttributeItemScraperStrategyTest
   @Test
   public void getAttributeParagraphTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("information");
     Element productText = contentElement.getElementsByClass("productText").first();
@@ -227,7 +227,7 @@ public class DescriptionAttributeItemScraperStrategyTest
   @Test
   public void getAttributeParagraphTagEmpty() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element contentElement = jsoupDocument.getElementById("information");
     Element productText = contentElement.getElementsByClass("productText").first();

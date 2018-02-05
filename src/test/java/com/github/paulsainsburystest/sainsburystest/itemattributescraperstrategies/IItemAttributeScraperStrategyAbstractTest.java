@@ -49,7 +49,7 @@ public abstract class IItemAttributeScraperStrategyAbstractTest
     //IOException shouldn't be thrown, but expected exception will handle it.
     //The likely cause under normal circumstances is the network is down. This still
     //shouldn't happen so that's why "Assume" is not used.
-    Document jsoupDocument = Globals.webpageCache.getDocument(url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(url);
 
     //MalformedDocumentException may be thrown. But it depends on whether you are
     //testing whether a well formed document with the attribute (not thrown),

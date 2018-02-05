@@ -174,7 +174,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeInformationIdMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     informationElement.remove();
@@ -193,7 +193,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTbodyTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
@@ -215,7 +215,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTrTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
@@ -240,7 +240,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
   @Test
   public void getAttributeTdTagMissing() throws IOException, MalformedDocumentException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
@@ -385,7 +385,7 @@ public class KilocaloriesAttributeItemScraperStrategyTest
    */
   private Document getDocumentAndSetKcalText(String text) throws IOException
   {
-    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.url);
 
     Element informationElement = jsoupDocument.getElementById("information");
     Elements tbodies = informationElement.getElementsByTag("tbody");
