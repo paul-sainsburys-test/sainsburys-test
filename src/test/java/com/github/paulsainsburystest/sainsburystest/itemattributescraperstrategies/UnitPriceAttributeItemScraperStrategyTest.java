@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,6 +18,12 @@ import org.junit.runners.Parameterized;
 
 /**
  * Test for getting an item's price from a webpage.
+ *
+ * FIXME: If there is sufficent time the pattern matching could be separated into
+ * a different test as it's run over many webpages, you only need 1 or 2. The expected
+ * results from webpages are important to start with (test breadth) but the above
+ * unnessarily increases the time to completion. (Test depth vs breadth.)
+ *
  * @author Paul
  */
 @RunWith(Parameterized.class)
@@ -364,6 +372,241 @@ public class UnitPriceAttributeItemScraperStrategyTest
     this.expectedException.expectMessage("Class \"pricePerUnit\" is missing");
     this.getTestingStrategy().getAttribute(jsoupDocument);
 
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is missing a pound sign at the start.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatPoundMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("4.99");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is missing a decimal place.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatOnePenceMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£0.9");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is missing two decimal places.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatTwoPenceMissing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£1");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is missing two decimal
+   * places and has a trailing decimal point.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatTwoPenceMissingWithTrailing() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£5.");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is only pence (without a symbol).
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatOnlyPenceNoSymbol() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("89");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is only pence
+   * (without a symbol) and with a decimal place.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatOnlyPenceNoSymbolWithDecimalPlace() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText(".51");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is only pence
+   * (without a symbol), with a decimal place and pound sign.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatOnlyPenceNoSymbolWithDecimalPlaceWithPound()
+      throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£.51");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is only pence (with a symbol).
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatOnlyPenceWithSymbol() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("5p");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is empty.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatEmpty() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text is only a pound symbol.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatSinglePound() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text has trailing characters.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatTrailingText() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£5.61$");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text has prepended characters.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatPrependText() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("8£5.61");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+  /**
+   * Test to see if an exception is thrown if extraction text has inserted characters in the middle.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @throws IOException Shouldn't be thrown.
+   */
+  @Test
+  public void getAttributeUnitFormatMiddleTextAdded() throws IOException, MalformedDocumentException
+  {
+    Document jsoupDocument = this.getDocumentAndSetUnitPriceText("£ 5.61");
+
+    this.expectedException.expect(MalformedDocumentException.class);
+    this.expectedException.expectMessage("Malformatted unit price cell.");
+    this.getTestingStrategy().getAttribute(jsoupDocument);
+  }
+
+
+  /**
+   * Get the webpage at the url initialised with this test and overwrite the text with
+   * one specified as a parameter.
+   * @param text What text should be set in the cell, e.g. "£0.50".
+   * @return A {@link Document} with the replaced text.
+   * @throws IOException Shouldn't be thrown.
+   */
+  private Document getDocumentAndSetUnitPriceText(String text) throws IOException
+  {
+    Document jsoupDocument = Globals.webpageCache.getDocument(this.url);
+
+    Element contentElement = jsoupDocument.getElementById("content");
+    Element productContent = contentElement.getElementsByClass("productContent").first();
+    Element pdp = productContent.getElementsByClass("pdp").first();
+    Element productSummary = pdp.getElementsByClass("productSummary").first();
+    Element addToTrolleytabBoxes = productSummary.getElementsByClass("addToTrolleytabBox").first();
+    Element addToTrolleytabContainer = addToTrolleytabBoxes.getElementsByClass("addToTrolleytabContainer").first();
+    Element pricingAndTrolleyOption = addToTrolleytabContainer.getElementsByClass("pricingAndTrolleyOptions").first();
+    Element pricing = pricingAndTrolleyOption.getElementsByClass("pricing").first();
+    Element pricePerUnit = pricing.getElementsByClass("pricePerUnit").first();
+
+    //As there is multiple elements in this tag, find the text part and replace just that.
+    for (Node e : pricePerUnit.childNodes())
+    {
+      if (e instanceof TextNode)
+      {
+        TextNode tn = (TextNode) e;
+        tn.text(text);
+        break;
+      }
+    }
+
+    return jsoupDocument;
   }
 
 
