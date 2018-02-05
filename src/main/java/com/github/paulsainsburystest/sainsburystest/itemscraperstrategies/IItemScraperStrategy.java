@@ -11,8 +11,8 @@ import org.jsoup.nodes.Document;
 public interface IItemScraperStrategy
 {
   /**
-   * Given a html document (which is assumed to be a category page) extract all of
-   * urls of the items listed.
+   * Given a html {@link Document} (which is assumed to be a category page) extract
+   * all of urls of the items listed.
    * @param jsoupDocument The document to extract from.
    * @return A list of all items on the page (not null).
    * @throws NullPointerException If jsoupDocument is null.
