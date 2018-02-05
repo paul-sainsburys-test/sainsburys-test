@@ -16,6 +16,12 @@ import org.junit.runners.Parameterized;
 
 /**
  * Test for getting an item's kcal per 100g from a webpage.
+ *
+ * FIXME: If there is sufficent time the pattern matching could be separated into
+ * a different test as it's run over many webpages, you only need 1 or 2. The expected
+ * results from webpages are important to start with (test breadth) but the above
+ * unnessarily increases the time to completion. (Test depth vs breadth.)
+ *
  * @author Paul
  */
 @RunWith(Parameterized.class)
