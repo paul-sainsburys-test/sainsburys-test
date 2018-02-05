@@ -21,11 +21,11 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
    * Pattern to extract price from.
    *
    * Match the whole string starting with a "£", then a non-zero length sequence
-   * of numbers, a decimal point ".", two more digits and finishing off with "/unit".
+   * of numbers, a decimal point "." and two more digits.
    *
-   * The main capture group captures the value after the "£" and before "/unit".
+   * The main capture group captures the value after the "£".
    */
-  public static final Pattern PRICE_PER_UNIT_PATTERN = Pattern.compile("^£((\\d+)\\.(\\d{2}))/unit$");
+  public static final Pattern PRICE_PER_UNIT_PATTERN = Pattern.compile("^£((\\d+)\\.(\\d{2}))$");
 
   /** Are null attributes allowed to return from this class?. */
   public static final boolean ALLOWS_FOR_NULL_ATTRIBUTE = false;
@@ -115,8 +115,8 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
       throw new MalformedDocumentException("Class \"pricePerUnit\" is missing.");
     }
 
-    //Some sample text: "£0.50/unit" or "£1.00/unit"
-    String data = pricePerUnit.text();
+    //Some sample text: "£0.50" or "£1.00"
+    String data = pricePerUnit.ownText();
 
     Matcher matcher = PRICE_PER_UNIT_PATTERN.matcher(data);
     if (matcher.find())
@@ -126,8 +126,8 @@ public class UnitPriceAttributeItemScraperStrategy extends AbstractItemAttribute
     }
     else
     {
-      throw new MalformedDocumentException("The data was found but was not in " +
-          "the correct pattern (\""+data+"\")");
+      throw new MalformedDocumentException("Malformatted unit price cell. The data " +
+          "was found but was not in the correct pattern (\""+data+"\")");
     }
   }
 
