@@ -17,7 +17,15 @@ public abstract class AbstractItemScraperStrategy implements IItemScraperStrateg
   public List<String> getItemUrls(Document jsoupDocument)
       throws NullPointerException, MalformedDocumentException
   {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (jsoupDocument == null)
+    {
+      throw new NullPointerException("The parameter cannot be null.");
+    }
+
+    //Do not check if the return type is null, as it should be null as part of
+    //the interface contract and it's not dependent on this class's state
+    //like AbstractItemAttributeScraperStrategy.
+    return this.getItemUrlsInputNullChecked(jsoupDocument);
   }
 
   /**
@@ -38,13 +46,23 @@ public abstract class AbstractItemScraperStrategy implements IItemScraperStrateg
   @Override
   public boolean equals(Object obj)
   {
-    throw new UnsupportedOperationException("Not implemented yet.");
+    if (obj != null && obj instanceof IItemScraperStrategy)
+    {
+      IItemScraperStrategy otherStrategy = (IItemScraperStrategy) obj;
+
+      //Use an internal method as we know this will be non-null.
+      return this.getName().equals(otherStrategy.getName());
+    }
+    else
+    {
+      return super.equals(obj);
+    }
   }
 
   @Override
   public int hashCode()
   {
-    throw new UnsupportedOperationException("Not implemented yet.");
+    return this.getName().hashCode();
   }
 
 }
