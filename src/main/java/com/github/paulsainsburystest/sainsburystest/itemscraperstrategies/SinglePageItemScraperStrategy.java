@@ -10,11 +10,12 @@ import org.jsoup.nodes.Document;
  */
 public class SinglePageItemScraperStrategy extends AbstractItemScraperStrategy
 {
+  public static final String NAME = "SinglePage";
 
   @Override
   public String getName()
   {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return NAME;
   }
 
   @Override
