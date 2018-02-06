@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -168,5 +170,184 @@ public class SinglePageItemScraperStrategyTest extends IItemScraperStrategyAbstr
         "we expected.", expected.size(), actual.size());
 
   }
+
+  /**
+   * Test when the "productLister" id is removed.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   */
+  @Test
+  public void getItemUrlsProductListerIdMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    productListerId.remove();
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Id \"productLister\" is missing");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
+  /**
+   * Test when the "productLister" class is removed.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   */
+  @Test
+  public void getItemUrlsProductListerClassMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    Elements productListerClass = productListerId.getElementsByClass("productLister");
+    productListerClass.remove();
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Class \"productLister\" is missing");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
+  /**
+   * Test when the "gridItem" classes are removed.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   */
+  @Test
+  public void getItemUrlsGridItemClassMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    Element productListerClass = productListerId.getElementsByClass("productLister").first();
+    Elements items = productListerClass.getElementsByClass("gridItem");
+    items.remove();
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Class \"gridItem\" is missing");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
+  /**
+   * Test when the "productInfo" class is removed.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   */
+  @Test
+  public void getItemUrlsProductInfoClassMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    Element productListerClass = productListerId.getElementsByClass("productLister").first();
+    Elements items = productListerClass.getElementsByClass("gridItem");
+
+    for (Element item : items)
+    {
+      Elements productInfo = item.getElementsByClass("productInfo");
+      productInfo.remove();
+    }
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Class \"productInfo\" is missing");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
+  /**
+   * Test when the "h3" tag is removed.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   */
+  @Test
+  public void getItemUrlsH3TagMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    Element productListerClass = productListerId.getElementsByClass("productLister").first();
+    Elements items = productListerClass.getElementsByClass("gridItem");
+
+    for (Element item : items)
+    {
+      Element productInfo = item.getElementsByClass("productInfo").first();
+      Elements h3 = productInfo.getElementsByTag("h3");
+      h3.remove();
+    }
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Tag \"h3\" is missing");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
+  /**
+   * Test when the "a" tag is removed.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   */
+  @Test
+  public void getItemUrlsATagMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    Element productListerClass = productListerId.getElementsByClass("productLister").first();
+    Elements items = productListerClass.getElementsByClass("gridItem");
+
+    for (Element item : items)
+    {
+      Element productInfo = item.getElementsByClass("productInfo").first();
+      Element h3 = productInfo.getElementsByTag("h3").first();
+      Elements a = h3.getElementsByTag("a");
+      a.remove();
+    }
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Tag \"a\" is missing");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
+  /**
+   * Test when the "a" tag has no href.
+   * As hrefs are optional.
+   * @throws IOException Shouldn't be thrown.
+   * @throws MalformedDocumentException Should always be thrown.
+   * @see <a href="https://www.w3.org/MarkUp/1995-archive/Elements/A.html">https://www.w3.org/MarkUp/1995-archive/Elements/A.html</a>
+   */
+  @Test
+  public void getItemUrlsHrefAttributeMissingTest() throws IOException, MalformedDocumentException
+  {
+    SinglePageItemScraperStrategy strategy = this.getTestingStrategy();
+
+    Document jsoupDocument = Globals.WEBPAGE_CACHE.getDocument(this.webpage);
+
+    Element productListerId = jsoupDocument.getElementById("productLister");
+    Element productListerClass = productListerId.getElementsByClass("productLister").first();
+    Elements items = productListerClass.getElementsByClass("gridItem");
+
+    for (Element item : items)
+    {
+      Element productInfo = item.getElementsByClass("productInfo").first();
+      Element h3 = productInfo.getElementsByTag("h3").first();
+      Element a = h3.getElementsByTag("a").first();
+      a.removeAttr("href");
+    }
+
+    super.expectedException.expect(MalformedDocumentException.class);
+    super.expectedException.expectMessage("Tag \"a\" has no href");
+    List<String> actualList = strategy.getItemUrls(jsoupDocument);
+  }
+
 
 }
