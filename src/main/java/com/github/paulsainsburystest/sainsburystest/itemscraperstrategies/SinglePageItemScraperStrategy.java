@@ -26,8 +26,16 @@ public class SinglePageItemScraperStrategy extends AbstractItemScraperStrategy
       throws NullPointerException, MalformedDocumentException
   {
     Element productListerId = jsoupDocument.getElementById("productLister");
+    if (productListerId == null)
+    {
+      throw new MalformedDocumentException("Id \"productLister\" is missing");
+    }
 
     Element productListerClass = productListerId.getElementsByClass("productLister").first();
+    if (productListerClass == null)
+    {
+      throw new MalformedDocumentException("Class \"productLister\" is missing");
+    }
 
     //All of the items.
     Elements items = productListerClass.getElementsByClass("gridItem");
@@ -37,15 +45,32 @@ public class SinglePageItemScraperStrategy extends AbstractItemScraperStrategy
     {
       //Avoid cross sell.
       Element productInfo = item.getElementsByClass("productInfo").first();
+      if (productInfo == null)
+      {
+        throw new MalformedDocumentException("Class \"productInfo\" is missing");
+      }
 
       //Avoid offer links
       Element h3 = productInfo.getElementsByTag("h3").first();
+      if (h3 == null)
+      {
+        throw new MalformedDocumentException("Tag \"h3\" is missing");
+      }
 
       //Get the link.
       Element a = h3.getElementsByTag("a").first();
+      if (a == null)
+      {
+        throw new MalformedDocumentException("Tag \"a\" is missing");
+      }
 
       //Get absolute reference.
       String url = a.absUrl("href");
+      if (url == null || url.equals(""))
+      {
+        throw new MalformedDocumentException("Tag \"a\" has no href");
+      }
+
       list.add(url);
     }
 
