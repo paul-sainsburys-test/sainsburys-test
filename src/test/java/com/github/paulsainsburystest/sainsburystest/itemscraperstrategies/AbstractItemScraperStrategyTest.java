@@ -10,6 +10,11 @@ import org.junit.Test;
 
 /**
  * Test for the {@link AbstractItemScraperStrategy}.
+ *
+ * Tests for individual subclasses of {@link AbstractItemScraperStrategy} should
+ * subclass {@link IItemScraperStrategyAbstractTest} instead. As this overrides
+ * methods which if subclassed does not force you to implement them yourself.
+ *
  * @author Paul
  */
 public class AbstractItemScraperStrategyTest extends IItemScraperStrategyAbstractTest<AbstractItemScraperStrategy>
