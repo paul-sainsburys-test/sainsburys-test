@@ -231,7 +231,7 @@ public class SinglePageItemScraperStrategyTest extends IItemScraperStrategyAbstr
 
     List<String> actualList = strategy.getItemUrls(jsoupDocument);
     //This will create a null pointer exception if needed.
-    Assert.assertEquals("There should be no items to extract infomation from",
+    Assert.assertEquals("There should be no items to extract information from",
         0, actualList.size());
   }
 
