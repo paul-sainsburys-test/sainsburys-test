@@ -42,6 +42,8 @@ public class SinglePageItemScraperStrategyTest extends IItemScraperStrategyAbstr
     "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-british-cherry---strawberry-pack-600g.html"
   };
 
+  //Though it does not refer onto jsainsburyplc.github.io it contains useful
+  //formats to test namely offers.
   private static final String TEST_URL2 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/fruit-veg/bananas-grapes.html";
   private static final String[] TEST_URL2_EXPECTED_URLS = new String[]
   {
