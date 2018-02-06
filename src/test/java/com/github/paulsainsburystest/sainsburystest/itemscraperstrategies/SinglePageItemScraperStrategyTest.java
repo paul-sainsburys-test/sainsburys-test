@@ -215,7 +215,7 @@ public class SinglePageItemScraperStrategyTest extends IItemScraperStrategyAbstr
   /**
    * Test when the "gridItem" classes are removed.
    * @throws IOException Shouldn't be thrown.
-   * @throws MalformedDocumentException Should always be thrown.
+   * @throws MalformedDocumentException Shouldn't be thrown.
    */
   @Test
   public void getItemUrlsGridItemClassMissingTest() throws IOException, MalformedDocumentException
@@ -229,9 +229,10 @@ public class SinglePageItemScraperStrategyTest extends IItemScraperStrategyAbstr
     Elements items = productListerClass.getElementsByClass("gridItem");
     items.remove();
 
-    super.expectedException.expect(MalformedDocumentException.class);
-    super.expectedException.expectMessage("Class \"gridItem\" is missing");
     List<String> actualList = strategy.getItemUrls(jsoupDocument);
+    //This will create a null pointer exception if needed.
+    Assert.assertEquals("There should be no items to extract infomation from",
+        0, actualList.size());
   }
 
   /**
