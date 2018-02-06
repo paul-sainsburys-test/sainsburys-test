@@ -27,7 +27,17 @@ public class Scraper
   public Scraper(IItemScraperStrategy itemScraperStrategy,
       Set<IItemAttributeScraperStrategy<?>> itemAttributeScraperStrategies)
   {
-    throw new UnsupportedOperationException("Not implemented yet.");
+    if (itemScraperStrategy == null)
+    {
+      throw new NullPointerException("itemScraperStrategy cannot be null.");
+    }
+    else if (itemAttributeScraperStrategies == null)
+    {
+      throw new NullPointerException("itemAttributeScraperStrategies cannot be null.");
+    }
+
+    this.itemAttributeScraperStrategies = itemAttributeScraperStrategies;
+    this.itemScraperStrategy = itemScraperStrategy;
   }
 
   /**
