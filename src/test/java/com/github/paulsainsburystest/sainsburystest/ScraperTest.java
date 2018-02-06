@@ -17,6 +17,9 @@ public class ScraperTest
   @Rule
   public final ExpectedException expectedException = ExpectedException.none();
 
+  //For the constructor tests we cannot actually test whether they were set.
+  //So this would be determined in future tests (do they fail or not).
+
   /**
    * Test when the {@link IItemAttributeScraperStrategy} parameter is null.
    * @throws NullPointerException Always thrown.
