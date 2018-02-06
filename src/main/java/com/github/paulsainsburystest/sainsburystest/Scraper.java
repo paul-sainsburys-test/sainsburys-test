@@ -44,6 +44,7 @@ public class Scraper
    * Scrape a category for all item attributes contained within it.
    * @param categoryUrl Url of a category to parse.
    * @return A list of mapped attributes.
+   * @throws NullPointerException If categoryUrl is null.
    */
   public List<Map<String,Object>> scrape(String categoryUrl)
   {
@@ -54,6 +55,7 @@ public class Scraper
    * Scrape an item's page for attributes.
    * @param url The url to scrape from.
    * @return A hash map of attribute names and their associated attribute.
+   * @throws NullPointerException If url is null.
    */
   public Map<String, Object> scrapeItemPage(String url)
   {
