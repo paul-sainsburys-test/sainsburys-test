@@ -74,7 +74,7 @@ public abstract class IItemScraperStrategyAbstractTest<STRATEGY_TYPE extends IIt
    * @see IItemScraperStrategy#getItemUrls(org.jsoup.nodes.Document)
    */
   @Test
-  public void getAttributeNullPointerParameter() throws MalformedDocumentException
+  public void getItemUrlsNullPointerParameter() throws MalformedDocumentException
   {
     STRATEGY_TYPE strategy = this.getTestingStrategy();
 
