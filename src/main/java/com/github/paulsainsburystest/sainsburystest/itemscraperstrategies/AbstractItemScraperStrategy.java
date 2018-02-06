@@ -38,13 +38,13 @@ public abstract class AbstractItemScraperStrategy implements IItemScraperStrateg
   @Override
   public boolean equals(Object obj)
   {
-    return super.equals(obj);
+    throw new UnsupportedOperationException("Not implemented yet.");
   }
 
   @Override
   public int hashCode()
   {
-    return super.hashCode();
+    throw new UnsupportedOperationException("Not implemented yet.");
   }
 
 }
