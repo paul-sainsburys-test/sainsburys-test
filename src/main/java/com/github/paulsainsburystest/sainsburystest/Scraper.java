@@ -16,13 +16,13 @@ public class Scraper
   private final Set<IItemAttributeScraperStrategy<?>> itemAttributeScraperStrategies;
 
   /** Strategy for scraping item pages. */
-  private final IItemScraperStrategy itemScraperStrategies;
+  private final IItemScraperStrategy itemScraperStrategy;
 
   /**
    * The constructor for this class.
    * @param itemScraperStrategy The strategy of how items will be scraped/selected.
    * @param itemAttributeScraperStrategies The set of strategies for scraping attributes.
-   * @throws NullPointerException If the parameter is null.
+   * @throws NullPointerException If any parameter is null.
    */
   public Scraper(IItemScraperStrategy itemScraperStrategy,
       Set<IItemAttributeScraperStrategy<?>> itemAttributeScraperStrategies)
