@@ -45,7 +45,7 @@ public class ScraperTest
     IItemScraperStrategy scraperStrategy = new SinglePageItemScraperStrategy();
 
     this.expectedException.expect(NullPointerException.class);
-    this.expectedException.expectMessage("itemScraperStrategy cannot be null");
+    this.expectedException.expectMessage("itemAttributeScraperStrategies cannot be null");
     Scraper scraper = new Scraper(scraperStrategy, null);
   }
 
