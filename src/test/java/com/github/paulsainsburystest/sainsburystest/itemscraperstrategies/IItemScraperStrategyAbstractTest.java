@@ -78,6 +78,9 @@ public abstract class IItemScraperStrategyAbstractTest<STRATEGY_TYPE extends IIt
   {
     STRATEGY_TYPE strategy = this.getTestingStrategy();
 
+    //Attempt to dereference a null reference, to perform the meta test.
+    strategy.toString();
+
     this.expectedException.expect(NullPointerException.class);
     this.expectedException.expectMessage("The parameter cannot be null.");
     strategy.getItemUrls(null);
