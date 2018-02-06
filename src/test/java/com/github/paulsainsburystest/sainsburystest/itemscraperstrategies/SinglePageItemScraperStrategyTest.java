@@ -45,26 +45,26 @@ public class SinglePageItemScraperStrategyTest extends IItemScraperStrategyAbstr
   private static final String TEST_URL2 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/fruit-veg/bananas-grapes.html";
   private static final String[] TEST_URL2_EXPECTED_URLS = new String[]
   {
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-loose-fairtrade-bananas",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-fairtrade-bananas-x5",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red-seedless-grapes-500g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-seedless-grapes-500g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-fairtrade-bananas-x8",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-eric---friends-small-bananas--fairtrade-x8",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red---white-seedless-grapes-500g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-fairtrade-bananas--so-organic",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-black-seedless-grapes-500g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-sabel-black-grapes--taste-the-difference-400g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-grapes-170g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red-grapes-170g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-grapes--so-organic-400g-(red-or-black--colour-may-vary-due-to-supply)",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-grapes--so-organic-400g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-grape-bag-80g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-seedless-grapes-1kg",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-mixed-seedless-grapes-800g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red-seedless-grapes-1kg",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-grapes-limited-edition--taste-the-difference-400g",
-    "https://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-black-grapes-700g"
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-loose-fairtrade-bananas",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-fairtrade-bananas-x5",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red-seedless-grapes-500g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-seedless-grapes-500g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-fairtrade-bananas-x8",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-eric---friends-small-bananas--fairtrade-x8",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red---white-seedless-grapes-500g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-fairtrade-bananas--so-organic",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-black-seedless-grapes-500g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-sabel-black-grapes--taste-the-difference-400g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-grapes-170g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red-grapes-170g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-grapes--so-organic-400g-(red-or-black--colour-may-vary-due-to-supply)",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-grapes--so-organic-400g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-grape-bag-80g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-white-seedless-grapes-1kg",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-mixed-seedless-grapes-800g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-red-seedless-grapes-1kg",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-grapes-limited-edition--taste-the-difference-400g",
+    "http://www.sainsburys.co.uk/shop/gb/groceries/bananas-grapes/sainsburys-black-grapes-700g"
   };
 
   /**
