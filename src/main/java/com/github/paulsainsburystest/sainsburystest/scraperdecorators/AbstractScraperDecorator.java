@@ -16,7 +16,12 @@ public abstract class AbstractScraperDecorator implements IScraperDecorator
    */
   public AbstractScraperDecorator(IScraperDecorator nextScraperDecorator)
   {
-    throw new UnsupportedOperationException("This is not implemented yet.");
+    if (nextScraperDecorator == null)
+    {
+      throw new NullPointerException("nextScraperDecorator cannot be null.");
+    }
+
+    this.nextScraperDecorator = nextScraperDecorator;
   }
 
 }
