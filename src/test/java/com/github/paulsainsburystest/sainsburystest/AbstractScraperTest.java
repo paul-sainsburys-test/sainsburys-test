@@ -3,9 +3,8 @@ package com.github.paulsainsburystest.sainsburystest;
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.*;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.SinglePageItemScraperStrategy;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 import org.jsoup.nodes.Document;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -31,6 +30,96 @@ public abstract class AbstractScraperTest
     set.add(new DescriptionAttributeItemScraperStrategy());
     set.add(new KilocaloriesAttributeItemScraperStrategy());
     set.add(new UnitPriceAttributeItemScraperStrategy());
+  }
+
+  /**
+   * Generates a map with the inputted parameters.
+   * A non-null parameter means it's not present in the map, while a null
+   * parameter means it's missing.
+   * @param title The title of item (not null).
+   * @param description The description of the item (not null).
+   * @param pricePerUnit The price per unit (not null).
+   * @param kilocaloriesPer100g kilocalories per 100g (can be null).
+   * @return A map used for testing common parameters.
+   * @throws NullPointerException If any parameter specified non null is null.
+   */
+  public static Map<String, Object> generateMap(String title, String description,
+      String pricePerUnit, Integer kilocaloriesPer100g)
+  {
+    if (title == null)
+    {
+      throw new NullPointerException("title cannot be null.");
+    }
+    else if (description == null)
+    {
+      throw new NullPointerException("description cannot be null.");
+    }
+    else if (pricePerUnit == null)
+    {
+      throw new NullPointerException("pricePerUnit cannot be null.");
+    }
+
+    //Linked as it'll iterating over this.
+    LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+
+    map.put(TitleAttributeItemScraperStrategy.ATTRIBUTE_NAME, title);
+    //Having a string reduces the amount of space neede when declaring it.
+    map.put(UnitPriceAttributeItemScraperStrategy.ATTRIBUTE_NAME, new BigDecimal(pricePerUnit));
+    map.put(DescriptionAttributeItemScraperStrategy.ATTRIBUTE_NAME, description);
+
+    if (kilocaloriesPer100g != null)
+    {
+      map.put(KilocaloriesAttributeItemScraperStrategy.ATTRIBUTE_NAME, kilocaloriesPer100g);
+    }
+
+    return map;
+  }
+
+  /**
+   * Generates a map with the inputted parameters.
+   * @param title The title of item (not null).
+   * @param description The description of the item (not null).
+   * @param pricePerUnit The price per unit (not null).
+   * @return A map used for testing common parameters.
+   * @throws NullPointerException If any parameter is null.
+   */
+  public static Map<String, Object> generateMap(String title, String description,
+      String pricePerUnit)
+  {
+    return AbstractScraperTest.generateMap(title, description, pricePerUnit, null);
+  }
+
+  /**
+   * Generates a immutable map with the inputted parameters.
+   * A non-null parameter means it's not present in the map, while a null
+   * parameter means it's missing.
+   * @param title The title of item (not null).
+   * @param description The description of the item (not null).
+   * @param pricePerUnit The price per unit (not null).
+   * @param kilocaloriesPer100g kilocalories per 100g (can be null).
+   * @return A map used for testing common parameters.
+   * @throws NullPointerException If any parameter specified non null is null.
+   */
+  public static Map<String, Object> generateImmutableMap(String title, String description,
+      String pricePerUnit, Integer kilocaloriesPer100g)
+  {
+    Map<String, Object> map = AbstractScraperTest.generateMap(title, description, pricePerUnit, kilocaloriesPer100g);
+    return Collections.unmodifiableMap(map);
+  }
+
+  /**
+   * Generates a immutable map with the inputted parameters.
+   * @param title The title of item (not null).
+   * @param description The description of the item (not null).
+   * @param pricePerUnit The price per unit (not null).
+   * @return A map used for testing common parameters.
+   * @throws NullPointerException If any parameter is null.
+   */
+  public static Map<String, Object> generateImmutableMap(String title, String description,
+      String pricePerUnit)
+  {
+    Map<String, Object> map = AbstractScraperTest.generateMap(title, description, pricePerUnit);
+    return Collections.unmodifiableMap(map);
   }
 
   @Rule
