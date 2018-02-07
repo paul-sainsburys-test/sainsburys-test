@@ -1,7 +1,6 @@
 package com.github.paulsainsburystest.sainsburystest;
 
-import static com.github.paulsainsburystest.sainsburystest.AbstractScraperTest.DEFAULT_SCRAPER_STRATREGY;
-import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.IItemAttributeScraperStrategy;
+import com.github.paulsainsburystest.sainsburystest.scraperdecorators.IScraperDecorator;
 import java.io.IOException;
 import java.util.*;
 import org.junit.Assert;
@@ -10,27 +9,22 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * Test for the extracting items (and their attributes) from a category webpage
- * from {@link Scraper}.
- *
- * FIXME: This needs to test when a link error occurs, though I don't know how to
- * programmically cause and test that in Jsoup.
- *
+ * Test the {@link IScraperDecorator} implementation in {@link Scraper}
  * @author Paul
- * @see Scraper
- * @see Scraper#scrape(java.lang.String)
+ * @see Scraper#scrapeDecorated(java.lang.String)
  */
 @RunWith(Parameterized.class)
-public class ScraperScrapeTest extends AbstractScraperTest
+public class ScraperScrapeDecoratedTest extends AbstractScraperTest
 {
-
   private static final String TEST_URL1 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html";
-  private static final List<Map<String, Object>> TEST_URL1_EXPECTED_RESULT;
+  private static final Map<String, Object> TEST_URL1_EXPECTED_RESULT;
   static
   {
-    List<Map<String, Object>> list = new LinkedList<>();
-    TEST_URL1_EXPECTED_RESULT = Collections.unmodifiableList(list);
+    //Real it's stored like Map<String,List<Map<String, Object>>>
+    Map<String, Object> map = new LinkedHashMap<>();
+    TEST_URL1_EXPECTED_RESULT = Collections.unmodifiableMap(map);
 
+    List<Map<String, Object>> list = new LinkedList<>();
     //ORDERING IS IMPORTANT.
     //https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-british-strawberries-400g.html
     list.add(AbstractScraperTest.generateImmutableMap(
@@ -101,8 +95,12 @@ public class ScraperScrapeTest extends AbstractScraperTest
         "Sainsbury's British Cherry & Strawberry Pack 600g",
         "British Cherry & Strawberry Mixed Pack", "4.00"));
 
-  }
+    //Make the list immutable.
+    list = Collections.unmodifiableList(list);
 
+    map.put("results", list);
+
+  }
 
   /**
    * Parameters to initialise each test with.
@@ -122,7 +120,7 @@ public class ScraperScrapeTest extends AbstractScraperTest
   private final String categoryWebpage;
 
   /** What result do you expect. */
-  private final List<Map<String, Object>> expectedResult;
+  private final Map<String, Object> expectedResult;
 
   /**
    * The constructor for this test.
@@ -130,7 +128,7 @@ public class ScraperScrapeTest extends AbstractScraperTest
    * @param expectedResult What result do you expect.
    * @throws NullPointerException If any of the parameters are null.
    */
-  public ScraperScrapeTest(String categoryWebpage, List<Map<String, Object>> expectedResult)
+  public ScraperScrapeDecoratedTest(String categoryWebpage, Map<String, Object> expectedResult)
   {
     if (categoryWebpage == null)
     {
@@ -146,121 +144,19 @@ public class ScraperScrapeTest extends AbstractScraperTest
   }
 
   /**
-   * Test scraping a null string.
-   * @throws IOException Shouldn't be thrown.
+   * Test that the scrapers output has been changed to reflect the decorator.
    * @throws MalformedDocumentException Shouldn't be thrown.
-   * @throws NullPointerException Always thrown
-   * @see Scraper#scrape(java.lang.String)
+   * @throws IOException Shouldn't be thrown.
    */
   @Test
-  public void scrapeNullUrlTest() throws IOException, MalformedDocumentException
-  {
-    Scraper scraper = new Scraper(DEFAULT_SCRAPER_STRATREGY, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
-
-    super.expectedException.expect(NullPointerException.class);
-    super.expectedException.expectMessage("categoryUrl cannot be null");
-    List<Map<String, Object>> actualResult = scraper.scrape(null);
-
-  }
-
-  /**
-   * Test scraping a valid category webpage.
-   * @throws IOException Shouldn't be thrown.
-   * @throws MalformedDocumentException Shouldn't be thrown.
-   * @see Scraper#scrape(java.lang.String)
-   */
-  @Test
-  public void scrapeTest() throws IOException, MalformedDocumentException
+  public void scrapeDecoratedTest() throws MalformedDocumentException, IOException
   {
     Scraper scraper = AbstractScraperTest.createDefaultScraperInstance();
 
-    List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
+    Map<String, Object> actualResult = scraper.scrapeDecorated(this.categoryWebpage);
 
-    //This is a complex data structure, it's hard to precisely say where the difference
-    //it without resorting to extra complexity here. (Which should be avoided.)
-    Assert.assertEquals("We expected the returned values to be the same but they were different",
+    Assert.assertEquals("We expected the output to the equal but it wasn't",
         this.expectedResult, actualResult);
-  }
-
-  /**
-   * Test when an attribute strategy throws a {@link MalformedDocumentException}.
-   * The exception bubbles up and out of the method without being caught.
-   * Don't need to check for chained exceptions as that's done elsewhere.
-   * @throws IOException Shouldn't be thrown.
-   * @throws MalformedDocumentException Always thrown.
-   * @see Scraper#scrape(java.lang.String)
-   */
-  @Test
-  public void scrapeAttributeScraperStrategyThrowsAnExceptionTest()
-      throws IOException, MalformedDocumentException
-  {
-    LinkedHashSet<IItemAttributeScraperStrategy<?>> set = new LinkedHashSet<>();
-    set.add(new MalformedAttributeItemScraperStrategy());
-
-    Scraper scraper = new Scraper(DEFAULT_SCRAPER_STRATREGY, set);
-
-    this.expectedException.expect(MalformedDocumentException.class);
-    this.expectedException.expectMessage("An exception was thrown when trying to extract an attribute from a webpage.");
-    List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
-  }
-
-  /**
-   * Test when an item scraper strategy throws a {@link MalformedDocumentException}.
-   * @throws IOException Shouldn't be thrown.
-   * @throws MalformedDocumentException Always thrown.
-   * @see Scraper#scrape(java.lang.String)
-   */
-  @Test
-  public void scrapeItemExtractionStrategyThrowsAnExceptionTest()
-      throws IOException, MalformedDocumentException
-  {
-    MalformedItemScraperStrategy categoryStrategy = new MalformedItemScraperStrategy();
-
-    Scraper scraper = new Scraper(categoryStrategy, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
-
-    //Expect a chained exception.
-    //This exception -> the original exception.
-    this.expectedException.expect(MalformedDocumentException.class);
-    this.expectedException.expectMessage("An exception was thrown when trying to extract items from a webpage.");
-    List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
-  }
-
-  /**
-   * Test when an item scraper strategy throws a {@link MalformedDocumentException},
-   * see if that contains a chained {@link MalformedDocumentException}
-   * from the {@link IItemScraperStrategy} implementation.
-   * @throws IOException Shouldn't be thrown.
-   * @throws MalformedDocumentException Always thrown.
-   * @see Scraper#scrape(java.lang.String)
-   */
-  @Test
-  public void scrapeItemExtractionStrategyThrowsAChainedExceptionTest()
-      throws IOException, MalformedDocumentException
-  {
-    MalformedItemScraperStrategy categoryStrategy = new MalformedItemScraperStrategy();
-
-    Scraper scraper = new Scraper(categoryStrategy, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
-
-    //Expect a chained exception.
-    //This exception -> the original exception.
-    try
-    {
-      //This will throw an exception
-      List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
-      Assert.fail("A MalformedDocumentException was not thrown.");
-    }
-    catch (MalformedDocumentException ex)
-    {
-      //This will cause a class class cast except if it's the wrong type.
-      MalformedDocumentException chainedException = (MalformedDocumentException) ex.getCause();
-
-      this.expectedException.expect(MalformedDocumentException.class);
-      this.expectedException.expectMessage(MalformedItemScraperStrategy.EXCEPTION_MESSAGE);
-
-      //If there was no chained exception this will throw a null pointer exception
-      //which is good.
-      throw chainedException;
-    }
   }
 
 }

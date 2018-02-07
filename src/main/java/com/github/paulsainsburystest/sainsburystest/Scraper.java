@@ -2,6 +2,7 @@ package com.github.paulsainsburystest.sainsburystest;
 
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.IItemAttributeScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
+import com.github.paulsainsburystest.sainsburystest.scraperdecorators.IScraperDecorator;
 import java.io.IOException;
 import java.util.*;
 import org.jsoup.Jsoup;
@@ -11,7 +12,7 @@ import org.jsoup.nodes.Document;
  * This class scrapes an item's page
  * @author Paul
  */
-public class Scraper
+public class Scraper implements IScraperDecorator
 {
   /** Strategies for scraping attributes. */
   private final Set<IItemAttributeScraperStrategy<?>> itemAttributeScraperStrategies;
@@ -40,6 +41,20 @@ public class Scraper
     this.itemAttributeScraperStrategies = itemAttributeScraperStrategies;
     this.itemScraperStrategy = itemScraperStrategy;
   }
+
+
+  @Override
+  public Map<String, Object> scrapeDecorated(String categoryUrl)
+      throws MalformedDocumentException, IOException
+  {
+    List<Map<String,Object>> listOfMaps = this.scrape(categoryUrl);
+
+    Map<String, Object> returnedMap = new LinkedHashMap();
+    returnedMap.put("results", listOfMaps);
+
+    return returnedMap;
+  }
+
 
   /**
    * Scrape a category for all item attributes contained within it.

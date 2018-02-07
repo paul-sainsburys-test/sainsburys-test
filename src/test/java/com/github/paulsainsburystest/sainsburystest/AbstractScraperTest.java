@@ -34,6 +34,15 @@ public abstract class AbstractScraperTest
   }
 
   /**
+   * Create a {@link Scraper} instance with the default parameters for this test.
+   * @return A {@link Scraper} instance.
+   */
+  public static Scraper createDefaultScraperInstance()
+  {
+    return new Scraper(DEFAULT_SCRAPER_STRATREGY, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
+  }
+
+  /**
    * Generates a map with the inputted parameters.
    * A non-null parameter means it's not present in the map, while a null
    * parameter means it's missing.
