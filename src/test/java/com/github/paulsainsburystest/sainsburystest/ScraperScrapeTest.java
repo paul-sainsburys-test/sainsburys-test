@@ -254,7 +254,6 @@ public class ScraperScrapeTest extends AbstractScraperTest
       //This will cause a class class cast except if it's the wrong type.
       MalformedDocumentException chainedException = (MalformedDocumentException) ex.getCause();
 
-      //We can't predict the message.
       this.expectedException.expect(MalformedDocumentException.class);
       this.expectedException.expectMessage(MalformedItemScraperStrategy.EXCEPTION_MESSAGE);
 
