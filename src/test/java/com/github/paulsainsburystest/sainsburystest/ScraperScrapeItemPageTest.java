@@ -1,29 +1,27 @@
 package com.github.paulsainsburystest.sainsburystest;
 
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.*;
-import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
-import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.SinglePageItemScraperStrategy;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
-import org.jsoup.nodes.Document;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * Test for the class {@link Scraper}.
+ * Test for the extracting attributes from a single webpage from {@link Scraper}.
  *
  * FIXME: This needs to test when a link error occurs, though I don't know how to
  * programmically cause and test that in Jsoup.
  *
  * @author Paul
+ * @see Scraper
+ * @see Scraper#scrapeItemPage(java.lang.String)
+ * @see Scraper#scrapeItemPagePrivate(java.lang.String)
  */
 @RunWith(Parameterized.class)
-public class ScraperTest
+public class ScraperScrapeItemPageTest extends AbstractScraperTest
 {
   //Has kcal
   private static final String TEST_URL1 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-400g.html";
@@ -83,21 +81,6 @@ public class ScraperTest
     map.put(DescriptionAttributeItemScraperStrategy.ATTRIBUTE_NAME, "by Sainsbury's mixed berries");
   }
 
-  private static final IItemScraperStrategy DEFAULT_SCRAPER_STRATREGY = new SinglePageItemScraperStrategy();
-
-  private static final Set<IItemAttributeScraperStrategy<?>> DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES;
-  static
-  {
-    //Linked as it'll iterating over this.
-    LinkedHashSet<IItemAttributeScraperStrategy<?>> set = new LinkedHashSet<>();
-    DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES = Collections.unmodifiableSet(set);
-
-    //Different order to the instances above.
-    set.add(new TitleAttributeItemScraperStrategy());
-    set.add(new DescriptionAttributeItemScraperStrategy());
-    set.add(new KilocaloriesAttributeItemScraperStrategy());
-    set.add(new UnitPriceAttributeItemScraperStrategy());
-  }
 
   /**
    * Parameters to initialise each test with.
@@ -116,8 +99,6 @@ public class ScraperTest
     );
   }
 
-  @Rule
-  public final ExpectedException expectedException = ExpectedException.none();
 
   /** What single webpage do we want to scrape. */
   private final String singleWebpageToScrape;
@@ -132,7 +113,7 @@ public class ScraperTest
    *    scraping that one webpage.
    * @throws NullPointerException If any parameter is null.
    */
-  public ScraperTest(String singleWebpageToScrape, Map<String, Object> singleWebpageToScrapeExpectedResult)
+  public ScraperScrapeItemPageTest(String singleWebpageToScrape, Map<String, Object> singleWebpageToScrapeExpectedResult)
   {
     if (singleWebpageToScrape == null)
     {
@@ -147,50 +128,6 @@ public class ScraperTest
     this.singleWebpageToScrapeExpectedResult = singleWebpageToScrapeExpectedResult;
   }
 
-  //For the constructor tests we cannot actually test whether they were set.
-  //So this would be determined in future tests (do they fail or not).
-
-  /**
-   * Test when the {@link IItemAttributeScraperStrategy} parameter is null.
-   * @throws NullPointerException Always thrown.
-   */
-  @Test
-  public void scraperConstructorItemScraperStrategyNullTest()
-  {
-    //An empty set is valid
-    HashSet<IItemAttributeScraperStrategy<?>> attributeScraperStrategySet = new HashSet<>();
-
-    this.expectedException.expect(NullPointerException.class);
-    this.expectedException.expectMessage("itemScraperStrategy cannot be null");
-    Scraper scraper = new Scraper(null, attributeScraperStrategySet);
-  }
-
-  /**
-   * Test when the {@link IItemScraperStrategy} parameter is null.
-   * @throws NullPointerException Always thrown.
-   */
-  @Test
-  public void scraperConstructorItemAttributeScraperStrategiesNullTest()
-  {
-    IItemScraperStrategy scraperStrategy = new SinglePageItemScraperStrategy();
-
-    this.expectedException.expect(NullPointerException.class);
-    this.expectedException.expectMessage("itemAttributeScraperStrategies cannot be null");
-    Scraper scraper = new Scraper(scraperStrategy, null);
-  }
-
-  /**
-   * Test when both parameters are null.
-   * @throws NullPointerException Always thrown.
-   * @see Scraper#Scraper(IItemScraperStrategy, Set)
-   */
-  @Test
-  public void scraperConstructorNullTest()
-  {
-    this.expectedException.expect(NullPointerException.class);
-    //We can't predict the message, it'll be either of the above.
-    Scraper scraper = new Scraper(null, null);
-  }
 
   /**
    * Test when the parameter is null for the scraping of a single page.
@@ -285,37 +222,5 @@ public class ScraperTest
       throw chainedException;
     }
   }
-
-
-
-  /**
-   * This class always throws a {@link MalformedDocumentException} when
-   * {@link MalformedAttributeItemScraperStrategy#getAttributeInputNullChecked(org.jsoup.nodes.Document) }
-   * is called.
-   * @see IItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document)
-   */
-  public static class MalformedAttributeItemScraperStrategy extends AbstractItemAttributeScraperStrategy<Object>
-  {
-
-    @Override
-    protected Object getAttributeInputNullChecked(Document jsoupDocument) throws MalformedDocumentException
-    {
-      throw new MalformedDocumentException("Test exception, this is always thrown.");
-    }
-
-    @Override
-    public boolean allowsForNullAttribute()
-    {
-      return false;
-    }
-
-    @Override
-    public String getAttributeName()
-    {
-      return "Malformed";
-    }
-
-  }
-
 
 }
