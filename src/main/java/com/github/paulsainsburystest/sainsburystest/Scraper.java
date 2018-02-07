@@ -47,7 +47,7 @@ public class Scraper
    * @return A list of mapped attributes.
    * @throws NullPointerException If categoryUrl is null.
    * @throws MalformedDocumentException If the strategy cannot determine if the
-   *    attribute exists or if it should exist but does not exist.
+   *    attribute/items exists or if it should exist but does not exist.
    * @throws IOException An error occurs when requesting the webpage.
    */
   public List<Map<String,Object>> scrape(String categoryUrl)
