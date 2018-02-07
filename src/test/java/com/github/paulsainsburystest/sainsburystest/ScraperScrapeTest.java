@@ -70,7 +70,7 @@ public class ScraperScrapeTest extends AbstractScraperTest
 
     //https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-strawberries--taste-the-difference-300g.html
     list.add(AbstractScraperTest.generateImmutableMap(
-        "Sainsbury's Strawberries, Taste the Difference 300g", "Ttd strawberries", "2.50", 27));
+        "Sainsbury's Strawberries, Taste the Difference 300g", "Ttd strawberries", "2.50", 33));
 
     //https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-cherry-punnet-200g-468015-p-44.html
     list.add(AbstractScraperTest.generateImmutableMap(
