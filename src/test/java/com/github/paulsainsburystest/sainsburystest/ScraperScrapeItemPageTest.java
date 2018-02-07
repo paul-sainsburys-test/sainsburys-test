@@ -107,7 +107,7 @@ public class ScraperScrapeItemPageTest extends AbstractScraperTest
   @Test
   public void scrapeItemPageNullParameterTest() throws IOException, MalformedDocumentException
   {
-    Scraper scraper = new Scraper(DEFAULT_SCRAPER_STRATREGY, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
+    Scraper scraper = AbstractScraperTest.createDefaultScraperInstance();
 
     this.expectedException.expect(NullPointerException.class);
     this.expectedException.expectMessage("url cannot be null");
@@ -124,7 +124,7 @@ public class ScraperScrapeItemPageTest extends AbstractScraperTest
   @Test
   public void scrapeItemPageTest() throws IOException, MalformedDocumentException
   {
-    Scraper scraper = new Scraper(DEFAULT_SCRAPER_STRATREGY, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
+    Scraper scraper = AbstractScraperTest.createDefaultScraperInstance();
 
     Map<String, Object> actualResult = scraper.scrapeItemPage(this.singleWebpageToScrape);
 

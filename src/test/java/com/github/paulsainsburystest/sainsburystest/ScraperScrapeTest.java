@@ -172,7 +172,7 @@ public class ScraperScrapeTest extends AbstractScraperTest
   @Test
   public void scrapeTest() throws IOException, MalformedDocumentException
   {
-    Scraper scraper = new Scraper(DEFAULT_SCRAPER_STRATREGY, DEFAULT_ATTRIBUTE_SCRAPER_STRATEGIES);
+    Scraper scraper = AbstractScraperTest.createDefaultScraperInstance();
 
     List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
 
