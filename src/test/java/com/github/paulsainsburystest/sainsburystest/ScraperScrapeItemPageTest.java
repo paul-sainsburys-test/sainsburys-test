@@ -1,9 +1,11 @@
 package com.github.paulsainsburystest.sainsburystest;
 
-import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.*;
+import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.IItemAttributeScraperStrategy;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,61 +27,27 @@ public class ScraperScrapeItemPageTest extends AbstractScraperTest
 {
   //Has kcal
   private static final String TEST_URL1 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-blueberries-400g.html";
-  private static final Map<String, Object> TEST_URL1_EXPECTED_RESULT;
-  static
-  {
-    //Linked as it'll iterating over this.
-    LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-    TEST_URL1_EXPECTED_RESULT = Collections.unmodifiableMap(map);
-
-    map.put(TitleAttributeItemScraperStrategy.ATTRIBUTE_NAME, "Sainsbury's Blueberries 400g");
-    map.put(KilocaloriesAttributeItemScraperStrategy.ATTRIBUTE_NAME, 45);
-    map.put(UnitPriceAttributeItemScraperStrategy.ATTRIBUTE_NAME, new BigDecimal("3.25"));
-    map.put(DescriptionAttributeItemScraperStrategy.ATTRIBUTE_NAME, "by Sainsbury's blueberries");
-  }
+  private static final Map<String, Object> TEST_URL1_EXPECTED_RESULT =
+      AbstractScraperTest.generateImmutableMap(
+          "Sainsbury's Blueberries 400g", "by Sainsbury's blueberries", "3.25", 45);
 
   //Has kcal
   private static final String TEST_URL2 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-cherry-punnet-200g-468015-p-44.html";
-  private static final Map<String, Object> TEST_URL2_EXPECTED_RESULT;
-  static
-  {
-    //Linked as it'll iterating over this.
-    LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-    TEST_URL2_EXPECTED_RESULT = Collections.unmodifiableMap(map);
-
-    map.put(TitleAttributeItemScraperStrategy.ATTRIBUTE_NAME, "Sainsbury's Cherry Punnet 200g");
-    map.put(KilocaloriesAttributeItemScraperStrategy.ATTRIBUTE_NAME, 52);
-    map.put(UnitPriceAttributeItemScraperStrategy.ATTRIBUTE_NAME, new BigDecimal("1.50"));
-    map.put(DescriptionAttributeItemScraperStrategy.ATTRIBUTE_NAME, "Cherries");
-  }
+  private static final Map<String, Object> TEST_URL2_EXPECTED_RESULT =
+      AbstractScraperTest.generateImmutableMap(
+          "Sainsbury's Cherry Punnet 200g", "Cherries", "1.50", 52);
 
   //Missing kcal
   private static final String TEST_URL3 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-blackcurrants-150g.html";
-  private static final Map<String, Object> TEST_URL3_EXPECTED_RESULT;
-  static
-  {
-    //Linked as it'll iterating over this.
-    LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-    TEST_URL3_EXPECTED_RESULT = Collections.unmodifiableMap(map);
-
-    map.put(TitleAttributeItemScraperStrategy.ATTRIBUTE_NAME, "Sainsbury's Blackcurrants 150g");
-    map.put(UnitPriceAttributeItemScraperStrategy.ATTRIBUTE_NAME, new BigDecimal("1.75"));
-    map.put(DescriptionAttributeItemScraperStrategy.ATTRIBUTE_NAME, "Union Flag");
-  }
+  private static final Map<String, Object> TEST_URL3_EXPECTED_RESULT =
+      AbstractScraperTest.generateImmutableMap(
+          "Sainsbury's Blackcurrants 150g", "Union Flag", "1.75");
 
   //Missing kcal
   private static final String TEST_URL4 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/shop/gb/groceries/berries-cherries-currants/sainsburys-mixed-berries-300g.html";
-  private static final Map<String, Object> TEST_URL4_EXPECTED_RESULT;
-  static
-  {
-    //Linked as it'll iterating over this.
-    LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-    TEST_URL4_EXPECTED_RESULT = Collections.unmodifiableMap(map);
-
-    map.put(TitleAttributeItemScraperStrategy.ATTRIBUTE_NAME, "Sainsbury's Mixed Berries 300g");
-    map.put(UnitPriceAttributeItemScraperStrategy.ATTRIBUTE_NAME, new BigDecimal("3.50"));
-    map.put(DescriptionAttributeItemScraperStrategy.ATTRIBUTE_NAME, "by Sainsbury's mixed berries");
-  }
+  private static final Map<String, Object> TEST_URL4_EXPECTED_RESULT =
+      AbstractScraperTest.generateImmutableMap(
+          "Sainsbury's Mixed Berries 300g", "by Sainsbury's mixed berries", "3.50");
 
 
   /**
