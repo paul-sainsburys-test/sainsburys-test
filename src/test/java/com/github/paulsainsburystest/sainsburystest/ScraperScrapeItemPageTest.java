@@ -184,6 +184,7 @@ public class ScraperScrapeItemPageTest extends AbstractScraperTest
 
       //We can't predict the message.
       this.expectedException.expect(MalformedDocumentException.class);
+      this.expectedException.expectMessage(MalformedAttributeItemScraperStrategy.EXCEPTION_MESSAGE);
 
       //If there was no chained exception this will throw a null pointer exception
       //which is good.
