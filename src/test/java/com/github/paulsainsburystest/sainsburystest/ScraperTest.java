@@ -52,9 +52,10 @@ public class ScraperTest
   /**
    * Test when both parameters are null.
    * @throws NullPointerException Always thrown.
+   * @see Scraper#Scraper(IItemScraperStrategy, Set)
    */
   @Test
-  public void scraperConstructorNullNullTest()
+  public void scraperConstructorNullTest()
   {
     this.expectedException.expect(NullPointerException.class);
     //We can't predict the message, it'll be either of the above.
