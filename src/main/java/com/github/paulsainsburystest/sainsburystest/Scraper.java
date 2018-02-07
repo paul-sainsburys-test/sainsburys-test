@@ -3,10 +3,7 @@ package com.github.paulsainsburystest.sainsburystest;
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.IItemAttributeScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -56,7 +53,34 @@ public class Scraper
   public List<Map<String,Object>> scrape(String categoryUrl)
       throws IOException, MalformedDocumentException
   {
-    throw new UnsupportedOperationException("Not implemented yet.");
+    if (categoryUrl == null)
+    {
+      throw new NullPointerException("categoryUrl cannot be null.");
+    }
+
+    Document jsoupDocument = Jsoup.connect(categoryUrl).get();
+
+    //Get urls from a category page.
+    List<String> itemList;
+    try
+    {
+      itemList = this.itemScraperStrategy.getItemUrls(jsoupDocument);
+    }
+    catch (MalformedDocumentException ex)
+    {
+      String message = "An exception was thrown when trying to extract items from a webpage.";
+      throw new MalformedDocumentException(message, ex);
+    }
+
+    //Get all of the attributes from all of the items.
+    List<Map<String,Object>> listOfMappedAttributes = new LinkedList<>();
+    for (String itemUrl : itemList)
+    {
+      Map<String,Object> attributes = this.scrapeItemPagePrivate(itemUrl);
+      listOfMappedAttributes.add(attributes);
+    }
+
+    return listOfMappedAttributes;
   }
 
   /**
