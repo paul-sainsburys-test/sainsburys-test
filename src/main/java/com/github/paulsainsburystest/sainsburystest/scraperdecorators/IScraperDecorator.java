@@ -19,6 +19,9 @@ import java.util.Map;
 public interface IScraperDecorator
 {
 
+  /** The key name used to store the results of the scraper. */
+  public static final String SCRAPER_RESULTS_KEY_NAME = "results";
+
   /**
    * This decorates the results of {@link Scraper#scrape(java.lang.String) }.
    *
