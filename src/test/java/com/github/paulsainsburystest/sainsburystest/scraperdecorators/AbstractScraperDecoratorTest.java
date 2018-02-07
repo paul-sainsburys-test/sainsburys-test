@@ -10,7 +10,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * Test the class {@link AbstractScraperDecorator}
+ * Test the class {@link AbstractScraperDecorator}.
+ *
+ * This test can be subclassed to test other {@link IScraperDecorator} concrete classes.
+ *
  * @author Paul
  */
 public class AbstractScraperDecoratorTest
