@@ -3,9 +3,12 @@ package com.github.paulsainsburystest.sainsburystest;
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.IItemAttributeScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 /**
  * This class scrapes an item's page
@@ -68,7 +71,11 @@ public class Scraper
   public Map<String, Object> scrapeItemPage(String url)
       throws IOException, MalformedDocumentException
   {
-    throw new UnsupportedOperationException("Not implemented yet.");
+    if (url == null)
+    {
+      throw new NullPointerException("url cannot be null.");
+    }
+    return this.scrapeItemPagePrivate(url);
   }
 
   /**
@@ -82,7 +89,36 @@ public class Scraper
   private Map<String, Object> scrapeItemPagePrivate(String url)
       throws IOException, MalformedDocumentException
   {
-    throw new UnsupportedOperationException("Not implemented yet.");
+    //Linked as it will be iterated over later.
+    Map<String, Object> map = new LinkedHashMap<>();
+
+    Document jsoupDocument = Jsoup.connect(url).get();
+
+    for (IItemAttributeScraperStrategy<?> attributeStrategy : this.itemAttributeScraperStrategies)
+    {
+      //Assume null is fine as that's what the interface contract says.
+      Object returnValue;
+      try
+      {
+        returnValue = attributeStrategy.getAttribute(jsoupDocument);
+      }
+      catch (MalformedDocumentException ex)
+      {
+        String message = "An exception was thrown when trying to extract an attribute " +
+            "from a webpage. ("+url+")";
+        throw new MalformedDocumentException(message, ex);
+      }
+
+      //If there is a return value include it otherwise skip it.
+      if (returnValue != null)
+      {
+        String attributeName = attributeStrategy.getAttributeName();
+        map.put(attributeName, returnValue);
+      }
+    }
+
+    return map;
+
   }
 
 }
