@@ -62,5 +62,15 @@ public class Scraper
     throw new UnsupportedOperationException("Not implemented yet.");
   }
 
+  /**
+   * Scrape an item's page for attributes (assumes the parameter is not null).
+   * @param url The url to scrape from (assumed non-null).
+   * @return A hash map of attribute names and their associated attribute.
+   */
+  private Map<String, Object> scrapeItemPagePrivate(String url)
+  {
+    throw new UnsupportedOperationException("Not implemented yet.");
+  }
+
 }
 
