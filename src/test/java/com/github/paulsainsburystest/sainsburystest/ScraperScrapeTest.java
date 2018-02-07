@@ -222,7 +222,7 @@ public class ScraperScrapeTest extends AbstractScraperTest
     //This exception -> the original exception.
     this.expectedException.expect(MalformedDocumentException.class);
     this.expectedException.expectMessage("An exception was thrown when trying to extract items from a webpage.");
-    Map<String, Object> actualResult = scraper.scrapeItemPage(this.categoryWebpage);
+    List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
   }
 
   /**
@@ -246,7 +246,7 @@ public class ScraperScrapeTest extends AbstractScraperTest
     try
     {
       //This will throw an exception
-      Map<String, Object> actualResult = scraper.scrapeItemPage(this.categoryWebpage);
+      List<Map<String, Object>> actualResult = scraper.scrape(this.categoryWebpage);
       Assert.fail("A MalformedDocumentException was not thrown.");
     }
     catch (MalformedDocumentException ex)
