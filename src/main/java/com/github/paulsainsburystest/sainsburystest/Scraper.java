@@ -47,7 +47,12 @@ public class Scraper implements IScraperDecorator
   public Map<String, Object> scrapeDecorated(String categoryUrl)
       throws MalformedDocumentException, IOException
   {
-    throw new UnsupportedOperationException("Not supported yet.");
+    List<Map<String,Object>> listOfMaps = this.scrape(categoryUrl);
+
+    Map<String, Object> returnedMap = new LinkedHashMap();
+    returnedMap.put("results", listOfMaps);
+
+    return returnedMap;
   }
 
 
