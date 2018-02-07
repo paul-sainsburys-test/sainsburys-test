@@ -1,6 +1,7 @@
 package com.github.paulsainsburystest.sainsburystest;
 
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.*;
+import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.AbstractItemScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.SinglePageItemScraperStrategy;
 import java.math.BigDecimal;
@@ -133,11 +134,13 @@ public abstract class AbstractScraperTest
    */
   public static class MalformedAttributeItemScraperStrategy extends AbstractItemAttributeScraperStrategy<Object>
   {
+    public static final String EXCEPTION_MESSAGE =
+        "Test exception (ItemAttributeScraperStrategy), this is always thrown.";
 
     @Override
     protected Object getAttributeInputNullChecked(Document jsoupDocument) throws MalformedDocumentException
     {
-      throw new MalformedDocumentException("Test exception, this is always thrown.");
+      throw new MalformedDocumentException(MalformedAttributeItemScraperStrategy.EXCEPTION_MESSAGE);
     }
 
     @Override
@@ -149,7 +152,32 @@ public abstract class AbstractScraperTest
     @Override
     public String getAttributeName()
     {
-      return "Malformed";
+      return "Malformed-ItemAttributeScraperStrategy";
+    }
+
+  }
+
+  /**
+   * This class always throws a {@link MalformedDocumentException} when
+   * {@link MalformedAttributeItemScraperStrategy#getAttributeInputNullChecked(org.jsoup.nodes.Document) }
+   * is called.
+   * @see IItemAttributeScraperStrategy#getAttribute(org.jsoup.nodes.Document)
+   */
+  public static class MalformedItemScraperStrategy extends AbstractItemScraperStrategy
+  {
+    public static final String EXCEPTION_MESSAGE =
+        "Test exception (ItemScraperStrategy), this is always thrown.";
+
+    @Override
+    protected List<String> getItemUrlsInputNullChecked(Document jsoupDocument) throws NullPointerException, MalformedDocumentException
+    {
+      throw new MalformedDocumentException(MalformedItemScraperStrategy.EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public String getName()
+    {
+      return "Malformed-ItemScraperStrategy";
     }
 
   }
