@@ -2,6 +2,7 @@ package com.github.paulsainsburystest.sainsburystest;
 
 import com.github.paulsainsburystest.sainsburystest.itemattributescraperstrategies.IItemAttributeScraperStrategy;
 import com.github.paulsainsburystest.sainsburystest.itemscraperstrategies.IItemScraperStrategy;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,8 +46,12 @@ public class Scraper
    * @param categoryUrl Url of a category to parse.
    * @return A list of mapped attributes.
    * @throws NullPointerException If categoryUrl is null.
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute exists or if it should exist but does not exist.
+   * @throws IOException An error occurs when requesting the webpage.
    */
   public List<Map<String,Object>> scrape(String categoryUrl)
+      throws IOException, MalformedDocumentException
   {
     throw new UnsupportedOperationException("Not implemented yet.");
   }
@@ -56,8 +61,12 @@ public class Scraper
    * @param url The url to scrape from.
    * @return A hash map of attribute names and their associated attribute.
    * @throws NullPointerException If url is null.
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute exists or if it should exist but does not exist.
+   * @throws IOException An error occurs when requesting the webpage.
    */
   public Map<String, Object> scrapeItemPage(String url)
+      throws IOException, MalformedDocumentException
   {
     throw new UnsupportedOperationException("Not implemented yet.");
   }
@@ -66,8 +75,12 @@ public class Scraper
    * Scrape an item's page for attributes (assumes the parameter is not null).
    * @param url The url to scrape from (assumed non-null).
    * @return A hash map of attribute names and their associated attribute.
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute exists or if it should exist but does not exist.
+   * @throws IOException An error occurs when requesting the webpage.
    */
   private Map<String, Object> scrapeItemPagePrivate(String url)
+      throws IOException, MalformedDocumentException
   {
     throw new UnsupportedOperationException("Not implemented yet.");
   }
