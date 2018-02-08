@@ -1,7 +1,7 @@
 # Sainsbury's Technical Test
 
 ## Prerequisite
-This makes the assumption that you are using Debian 9 - Stretch. (Though it should would with Debian derivatives.)
+This makes the assumption that you are using Debian 9 - Stretch. (Though it should work with Debian derivatives.)
 
 ## Building
 1. Install the following dependencies (running as root):
@@ -26,18 +26,15 @@ $ git clone https://github.com/paul-sainsburys-test/sainsburys-test.git
 $ cd ./sainsburys-test
 ```
 
-5. Run the tests: (Maven automatically downloads the dependencies needed.)
+5. Compile the program, run the tests and package it into a jar: (Maven automatically downloads the dependencies needed.)
 ```sh
-$ mvn test
+$ mvn clean test package
 ```
 
-6. Build the program and package it into a jar:
-```sh
-$ mvn package
-```
+All tests need to pass before it's packaged into a jar for execution.
 
 ## Executing the program
-1. If you look within the folder `./target` there will be two `.jar` files (`sainsburys-test-0.1.jar ` and `sainsburys-test-0.1-jar-with-dependencies.jar`):
+1. After a successful build if you look within the folder `./target` there will be two `.jar` files (`sainsburys-test-0.1.jar ` and `sainsburys-test-0.1-jar-with-dependencies.jar`):
 ```sh
 $ ls ./target
 ```
