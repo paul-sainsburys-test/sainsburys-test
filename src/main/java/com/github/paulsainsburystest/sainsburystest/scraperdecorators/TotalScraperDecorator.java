@@ -29,6 +29,13 @@ public class TotalScraperDecorator extends AbstractScraperDecorator
     super(nextScraperDecorator);
   }
 
+  /**
+   * Returns the map with the "total" key and the sum of all items (assuming 1 each).
+   * @param categoryUrl {@inheritDoc }
+   * @return {@inheritDoc }
+   * @throws MalformedDocumentException {@inheritDoc }
+   * @throws IOException {@inheritDoc }
+   */
   @Override
   public Map<String, Object> scrapeDecorated(String categoryUrl) throws MalformedDocumentException, IOException
   {
