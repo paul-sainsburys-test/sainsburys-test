@@ -51,6 +51,9 @@ public class TotalScraperDecorator extends AbstractScraperDecorator
    */
   public static BigDecimal getTotalPrice(List<Map<String,Object>> itemList)
   {
+    //Assume the parameter is not null, if it's null then in the for each loop
+    //it will throw a null pointer exception.
+
     //Initially there is no price.
     //Use this instead of the zero constant as the precision to two decimal places is needed.
     BigDecimal price = new BigDecimal("0.00");
