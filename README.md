@@ -26,14 +26,9 @@ $ git clone https://github.com/paul-sainsburys-test/sainsburys-test.git
 $ cd ./sainsburys-test
 ```
 
-5. Run the tests: (Maven automatically downloads the dependencies needed.)
+5. Compile the program, run the tests and package it into a jar: (Maven automatically downloads the dependencies needed.)
 ```sh
-$ mvn test
-```
-
-6. Build the program and package it into a jar:
-```sh
-$ mvn package
+$ mvn clean test package
 ```
 
 ## Executing the program
