@@ -1,7 +1,7 @@
 # Sainsbury's Technical Test
 
 ## Prerequisite
-This makes the assumption that you are using Debian 9 - Stretch. (Though it should would with Debian derivatives.)
+This makes the assumption that you are using Debian 9 - Stretch. (Though it should work with Debian derivatives.)
 
 ## Building
 1. Install the following dependencies (running as root):
