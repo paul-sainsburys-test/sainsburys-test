@@ -2,6 +2,11 @@ package com.github.paulsainsburystest.sainsburystest.scraperdecorators;
 
 import com.github.paulsainsburystest.sainsburystest.MalformedDocumentException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +32,7 @@ public class ExceptionScraperDecorator extends AbstractScraperDecorator
    */
   public ExceptionScraperDecorator(IScraperDecorator nextScraperDecorator)
   {
-    super(null);
-    throw new UnsupportedOperationException("Not supported yet.");
+    super(nextScraperDecorator);
   }
 
 
@@ -51,7 +55,38 @@ public class ExceptionScraperDecorator extends AbstractScraperDecorator
   public Map<String, Object> scrapeDecorated(String categoryUrl)
       throws MalformedDocumentException, IOException
   {
-    throw new UnsupportedOperationException("Not supported yet.");
+    try
+    {
+      Map<String, Object> returnedValue = this.nextScraperDecorator.scrapeDecorated(categoryUrl);
+
+      //No exceptions were thrown. Add the attributes that to say this.
+      returnedValue.put(ExceptionScraperDecorator.DECORATOR_NAME, Boolean.FALSE);
+
+      return returnedValue;
+    }
+    catch (Exception ex)
+    {
+      Map<String, Object> outerMap = new LinkedHashMap<>();
+
+      //There was an exception.
+      outerMap.put(ExceptionScraperDecorator.DECORATOR_NAME, Boolean.TRUE);
+
+      //Put in the stack trace
+      String stacktrace;
+      try(StringWriter stringWriter = new StringWriter();
+          PrintWriter printerWriter = new PrintWriter(stringWriter))
+      {
+        ex.printStackTrace(printerWriter);
+        stacktrace = stringWriter.toString();
+      }
+      outerMap.put(ExceptionScraperDecorator.DECORATOR_STACKTRACE_NAME, stacktrace);
+
+      //Put in an empty list. As other classes may use this.
+      List<Map<String, Object>> listOfMaps = new LinkedList<>();
+      outerMap.put(IScraperDecorator.SCRAPER_RESULTS_KEY_NAME, listOfMaps);
+
+      return outerMap;
+    }
   }
 
 }
