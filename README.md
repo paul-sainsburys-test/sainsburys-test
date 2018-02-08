@@ -6,7 +6,7 @@ This makes the assumption that you are using Debian 9 - Stretch. (Though it shou
 ## Building
 1. Install the following dependencies (running as root)
 ```sh
-\# apt install openjdk-8-jre openjdk-8-jdk maven git
+# apt install openjdk-8-jre openjdk-8-jdk maven git
 ```
 
 2. Create and move to the folder you want to download this git repo to. For example:
