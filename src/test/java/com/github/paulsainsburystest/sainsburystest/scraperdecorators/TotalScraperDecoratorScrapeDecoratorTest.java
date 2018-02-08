@@ -17,11 +17,17 @@ import org.junit.runners.Parameterized;
 /**
  * Test for the class {@link TotalScraperDecorator}.
  *
+ * This does not include the method {@link TotalScraperDecorator#getTotalPrice(java.util.List) },
+ * as that's handled in other tests (see below).
+ *
  * @author Paul
- * @see TotalScraperDecorator 
+ * @see TotalScraperDecorator
+ * @see TotalScraperDecorator#scrapeDecorated(java.lang.String)
+ * @see TotalScraperDecoratorGetTotalPriceAttributePresentTest
+ * @see TotalScraperDecoratorGetTotalPriceAttributeMissingTest
  */
 @RunWith(Parameterized.class)
-public class TotalScraperDecoratorTest extends AbstractScraperDecoratorTest
+public class TotalScraperDecoratorScrapeDecoratorTest extends AbstractScraperDecoratorTest
 {
 
   private static final String TEST_URL1 = "https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html";
@@ -139,7 +145,7 @@ public class TotalScraperDecoratorTest extends AbstractScraperDecoratorTest
    * @param expectedResult What result do you expect.
    * @throws NullPointerException If any of the parameters are null.
    */
-  public TotalScraperDecoratorTest(String categoryWebpage, Map<String, Object> expectedResult)
+  public TotalScraperDecoratorScrapeDecoratorTest(String categoryWebpage, Map<String, Object> expectedResult)
   {
     if (categoryWebpage == null)
     {
