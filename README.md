@@ -31,8 +31,10 @@ $ cd ./sainsburys-test
 $ mvn clean test package
 ```
 
+All tests need to pass before it's packaged into a jar for execution.
+
 ## Executing the program
-1. If you look within the folder `./target` there will be two `.jar` files (`sainsburys-test-0.1.jar ` and `sainsburys-test-0.1-jar-with-dependencies.jar`):
+1. After a successful build if you look within the folder `./target` there will be two `.jar` files (`sainsburys-test-0.1.jar ` and `sainsburys-test-0.1-jar-with-dependencies.jar`):
 ```sh
 $ ls ./target
 ```
