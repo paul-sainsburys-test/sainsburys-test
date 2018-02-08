@@ -39,6 +39,7 @@ public class Main
   private final UnitPriceAttributeItemScraperStrategy unitPriceScraper =
       new UnitPriceAttributeItemScraperStrategy();
 
+
   /** Attribute scraper strategies set. */
   private final LinkedHashSet<IItemAttributeScraperStrategy<?>> attributeStrategies = new LinkedHashSet<>
   (
@@ -68,6 +69,9 @@ public class Main
   /**
    * The entry point of this program
    * @param args A link of a category webpage to download or help.
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute/items exists or if it should exist but does not exist.
+   * @throws IOException An error occurs when requesting the webpage.
    * @see #printHelp()
    */
   public static void main(String[] args) throws IOException, MalformedDocumentException
@@ -97,6 +101,9 @@ public class Main
   /**
    * Download the specified webpage, extract all of the items their attributes we've
    * specified and print the results.
+   * @throws MalformedDocumentException If the strategy cannot determine if the
+   *    attribute/items exists or if it should exist but does not exist.
+   * @throws IOException An error occurs when requesting the webpage.
    * @param categoryUrl Url of a category to extract from.
    */
   public void start(String categoryUrl) throws MalformedDocumentException, IOException
