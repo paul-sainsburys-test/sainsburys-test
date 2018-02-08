@@ -137,7 +137,7 @@ public class TotalScraperDecoratorGetTotalPriceAttributeMissingTest
     else
     {
       String exceptionMessage = "We expected the attribute \""+UnitPriceAttributeItemScraperStrategy.ATTRIBUTE_NAME+"\" " +
-          " to be present and it wasn't.";
+          "to be present but it wasn't.";
       this.expectedException.expect(DecoratorAttributeMissingException.class);
       this.expectedException.expectMessage(exceptionMessage);
       BigDecimal actualResult = TotalScraperDecorator.getTotalPrice(this.inputListOfItems);
